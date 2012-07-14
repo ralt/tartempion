@@ -1,0 +1,8 @@
+{
+    "name": "tartempion",
+    "version": "0.0.1",
+    "author": "Florian Margaine <florian@margaine.com>",
+    "dependencies": {
+        "ncore": "2.2.3"
+    }
+}

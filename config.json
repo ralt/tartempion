@@ -1,0 +1,9 @@
+{
+    "port": 8080,
+    "views": "templates",
+    "view engine": "ejs",
+    "session": {
+        "secret": "keyboard cat",
+        "maxAge": 180000
+    }
+}

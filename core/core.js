@@ -11,9 +11,10 @@ module.exports = function() {
 
     // Run the server
     app.listen( config.port, function() {
+        var address = app.address();
         console.log( 'Tartempion listening on: '
-            + app.address().address + ':'
-            + app.address().port
+            + address.address + ':'
+            + address.port
         );
     });
 };

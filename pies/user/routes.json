@@ -1,1 +1,6 @@
-{}
+{
+    "get": [
+        "/users": "index",
+        "/users/:uid": "read",
+    ],
+}

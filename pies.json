@@ -1,24 +1,26 @@
 {
-    "user": {
-        "path": "user"
-    },
-    "page": {
-        "path": "page",
-        "dependencies": [
-            "user"
-        ]
-    },
-    "room": {
-        "path": "room",
-        "dependencies": [
-            "user",
-            "message"
-        ]
-    },
-    "message": {
-        "path": "message",
-        "dependencies": [
-            "user"
-        ]
-    }
+    "pies": [
+        "user": {
+            "path": "user"
+        },
+        "page": {
+            "path": "page",
+            "dependencies": [
+                "user"
+            ]
+        },
+        "room": {
+            "path": "room",
+            "dependencies": [
+                "user",
+                "message"
+            ]
+        },
+        "message": {
+            "path": "message",
+            "dependencies": [
+                "user"
+            ]
+        }
+    ]
 }

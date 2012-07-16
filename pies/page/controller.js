@@ -5,7 +5,9 @@ module.exports = {
 
     index: function( req, res ) {
         this.model.getIndex( function( pages ) {
-            res.render( 'pages/index', pages );
+            res.render( 'pages/index', {
+                pages: pages
+            });
         });
     },
 
@@ -19,7 +21,9 @@ module.exports = {
     read: function( req, res ) {
         this.model.getById( req.params.pid,
             function( page ) {
-            res.render( 'pages/page', page );
+            res.render( 'pages/page', {
+                page: page
+            });
         });
     },
 
@@ -28,7 +32,9 @@ module.exports = {
             function() {
             this.model.getById( req.params.pid,
                 function( page ) {
-                res.render( 'pages/edit', page );
+                res.render( 'pages/edit', {
+                    page: page
+                });
             });
         });
     },
@@ -38,7 +44,9 @@ module.exports = {
             function() {
             this.model.getById( req.params.pid,
                 function( page ) {
-                res.render( 'pages/delete', page );
+                res.render( 'pages/delete', {
+                    page: page
+                });
             });
         });
     },

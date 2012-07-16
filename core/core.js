@@ -46,10 +46,11 @@ function express( config ) {
     // Configuration of express
     app.configure( function() {
         this.set( 'views', path.join(
-            __dirname, config.views
+            __dirname, '..', config.views
         ));
         this.set( 'view engine', config[ 'view engine' ] );
         this.use( express.bodyParser() );
+        this.use( express.cookieParser() );
         if ( 'session' in config ) {
             this.use( express.session( {
                 secret: config.session.secret,
@@ -104,6 +105,8 @@ function addPiesToNcore( pies ) {
         ));
     });
 
+    console.log( 'Pies loaded.' );
+
     return ncore;
 }
 
@@ -118,26 +121,36 @@ function loadRoutes( app, pies ) {
         routes = JSON.parse( routes );
 
         // Now add each route to the app
-        addRoutes( pie, routes, app );
+        addRoutes( pies, pie, routes, app );
     });
+
+    console.log( 'Routes loaded.' );
 }
 
 /**
  * Add ALL the routes!
  */
-function addRoutes( pie, routes, app ) {
+function addRoutes( pies, pie, routes, app ) {
     // Add the GET routes
-    routes.get.forEach( function( route ) {
-        Object.keys( route ).forEach( function( r ) {
-            app.get( r, pie[ route[ r ] ] );
+    if ( 'get' in routes ) {
+        routes.get.forEach( function( route ) {
+            Object.keys( route ).forEach( function( r ) {
+                app.get( r, require(
+                    path.join( __dirname, '..', 'pies', pies[ pie ].path, 'controller.js' )
+                )[ route[ r ] ]);
+            });
         });
-    });
+    }
 
     // Add the POST routes
-    routes.post.forEach( function( route ) {
-        Object.keys( route ).forEach( function( r ) {
-            app.post( r, pie[ route[ r ] ] );
+    if ( 'post' in routes ) {
+        routes.post.forEach( function( route ) {
+            Object.keys( route ).forEach( function( r ) {
+                app.post( r, require(
+                    path.join( __dirname, '..', 'pies', pies[ pie ].path, 'controller.js' )
+                )[ route[ r ] ]);
+            });
         });
-    });
+    }
 }
 

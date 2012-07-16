@@ -4,6 +4,7 @@
     "author": "Florian Margaine <florian@margaine.com>",
     "dependencies": {
         "ncore": "2.2.3",
-        "express": "2.5.11"
+        "express": "2.5.11",
+        "ejs": "0.7.2"
     }
 }

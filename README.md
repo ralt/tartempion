@@ -96,7 +96,7 @@ More information:
 - The `controller.js` file is expected to return an object having all the methods specified in the routes.
 - In these methods, you have access to `this.model`. This object is the model defined in `model.js`.
 - If you have defined dependencies in the `pies.json` file, you will access them using `this.pieName`.
-- If you have an `setup` method or a `init` method, they will be run once when the server will start. (setup first)
+- If you have a `setup` method or an `init` method, they will be run once when the server will start. (setup first)
 
 ### Model all the things
 

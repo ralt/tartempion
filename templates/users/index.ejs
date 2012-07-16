@@ -1,0 +1,5 @@
+<% if ( typeof users !== 'undefined' ) { %>
+    <% users.forEach( function( user ) { %>
+    <div class="user"><%= user.name %></div>
+    <% }); %>
+<% } %>

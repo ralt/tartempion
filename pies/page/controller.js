@@ -28,9 +28,10 @@ module.exports = {
     },
 
     updateForm: function( req, res ) {
+        var that = this;
         can.bind( this )( 'edit', req.session.uid,
             function() {
-            this.model.getById( req.params.pid,
+            that.model.getById( req.params.pid,
                 function( page ) {
                 res.render( 'pages/edit', {
                     page: page
@@ -40,9 +41,10 @@ module.exports = {
     },
 
     deleteForm: function( req, res ) {
+        var that = this;
         can.bind( this )( 'delete', req.session.uid,
             function() {
-            this.model.getById( req.params.pid,
+            that.model.getById( req.params.pid,
                 function( page ) {
                 res.render( 'pages/delete', {
                     page: page
@@ -52,9 +54,10 @@ module.exports = {
     },
 
     create: function( req, res ) {
+        var that = this;
         can.bind( this )( 'create', req.session.uid,
             function() {
-            this.model.save( req.body, function( status ) {
+            that.model.save( req.body, function( status ) {
                 res.render( 'pages/create', {
                     message: status
                 });
@@ -63,9 +66,10 @@ module.exports = {
     },
 
     update: function( req, res ) {
+        var that = this;
         can.bind( this )( 'update', req.session.uid,
             function() {
-            this.model.save( req.body, function( status ) {
+            that.model.save( req.body, function( status ) {
                 res.render( 'pages/edit', {
                     message: status
                 });
@@ -74,10 +78,11 @@ module.exports = {
     },
 
     'delete': function( req, res ) {
+        var that = this;
         can.bind( this )( 'delete', req.session.uid,
             function() {
-            this.model.delete( req.params.pid, function( status ) {
-                res.render( 'index', {
+            that.model.delete( req.params.pid, function( status ) {
+                res.render( 'pages/index', {
                     message: 'Page ' + req.params.pid + ' deleted.'
                 });
             });

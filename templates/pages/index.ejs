@@ -1,8 +1,15 @@
-<% pages.forEach( function( page ) { %>
-<div class="page">
-    <h2><%= page.title %></h2>
-    <div class="content">
-        <%= page.body %>
-    </div>
+<% if ( typeof message !== 'undefined' ) { %>
+<div class="message">
+    <%= message %>
 </div>
-<% }); %>
+<% } %>
+<% if ( typeof pages !== 'undefined' ) { %>
+    <% pages.forEach( function( page ) { %>
+    <div class="page">
+        <h2><%= page.title %></h2>
+        <div class="content">
+            <%= page.body %>
+        </div>
+    </div>
+    <% }); %>
+<% } %>

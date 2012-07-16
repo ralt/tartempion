@@ -11,6 +11,7 @@ module.exports = {
 
     createForm: function( req, res ) {
         can.bind( this )( 'create', req.session.uid,
+            function() {
             res.render( 'pages/create' );
         });
     },
@@ -24,6 +25,7 @@ module.exports = {
 
     updateForm: function( req, res ) {
         can.bind( this )( 'edit', req.session.uid,
+            function() {
             this.model.getById( req.params.pid,
                 function( page ) {
                 res.render( 'pages/edit', page );
@@ -33,6 +35,7 @@ module.exports = {
 
     deleteForm: function( req, res ) {
         can.bind( this )( 'delete', req.session.uid,
+            function() {
             this.model.getById( req.params.pid,
                 function( page ) {
                 res.render( 'pages/delete', page );
@@ -42,6 +45,7 @@ module.exports = {
 
     create: function( req, res ) {
         can.bind( this )( 'create', req.session.uid,
+            function() {
             this.model.save( req.body, function( status ) {
                 res.render( 'pages/create', {
                     message: status
@@ -52,6 +56,7 @@ module.exports = {
 
     update: function( req, res ) {
         can.bind( this )( 'update', req.session.uid,
+            function() {
             this.model.save( req.body, function( status ) {
                 res.render( 'pages/edit', {
                     message: status
@@ -62,6 +67,7 @@ module.exports = {
 
     'delete': function( req, res ) {
         can.bind( this )( 'delete', req.session.uid,
+            function() {
             this.model.delete( req.params.pid, function( status ) {
                 res.render( 'index', {
                     message: 'Page ' + req.params.pid + ' deleted.'

@@ -8,7 +8,7 @@ All the web frameworks out there don't suit my needs.
 
 They're good, really, and I inspired myself from them to build `tartempion`.
 
-But they either miss the injection dependency, or they're not decoupled enough. Or none of them.
+But they either miss the dependency injection, or they're not decoupled enough. Or none of them.
 
 So I built my own framework, based on [express][1] and [ncore][2].
 

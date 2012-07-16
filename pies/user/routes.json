@@ -1,6 +1,6 @@
 {
     "get": [
-        "/users": "index",
-        "/users/:uid": "read",
-    ],
+        { "/users": "index" },
+        { "/users/:uid": "read" }
+    ]
 }

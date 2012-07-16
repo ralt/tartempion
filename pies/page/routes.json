@@ -1,15 +1,15 @@
 {
     "get": [
-        "/": "home",
-        "/pages": "index",
-        "/pages/new": "createForm",
-        "/pages/:pid": "read",
-        "/pages/edit/:pid": "updateForm",
-        "/pages/delete/:pid": "deleteForm"
+        { "/": "home" },
+        { "/pages": "index" },
+        { "/pages/new": "createForm" },
+        { "/pages/:pid": "read" },
+        { "/pages/edit/:pid": "updateForm" },
+        { "/pages/delete/:pid": "deleteForm" }
     ],
     "post": [
-        "/pages/new": "create",
-        "/pages/edit/:pid": "update",
-        "/pages/delete/:pid": "delete"
+        { "/pages/new": "create" },
+        { "/pages/edit/:pid": "update" },
+        { "/pages/delete/:pid": "delete" }
     ]
 }

@@ -110,6 +110,13 @@ This is also where you define your model. If you use mongoose, this'd be where t
 
 Then, just don't worry! The models are automatically injected in the controllers, the dependencies are injected wherever it's needed! So you don't have to worry. Just code.
 
+Installation
+---
+
+`git clone https://github.com/Ralt/tartempion && cd tartempion && npm install`
+
+This repository is an example. You can look around to see how it's working.
+
 Roadmap
 ---
 

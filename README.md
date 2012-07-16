@@ -66,7 +66,7 @@ All the pies define the routes they handle. They're defined in the `routes.json`
     }
 
 As you can see, `GET` and `POST` routes are separated. You define the route to use
-(express.js routes, look here for a more thorough documentation), and the function
+(express.js routes, [look here for a more thorough documentation][3]), and the function
 in the controller.
 
 For example, in the `controller.js` file of this pie, we will find this:
@@ -100,7 +100,7 @@ More information:
 
 ### Model all the things
 
-![Model all the things][3]
+![Model all the things][4]
 
 The `model.js` file is where you define the methods usable in the `controller.js` file.
 
@@ -139,5 +139,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
    [1]: http://expressjs.com
    [2]: https://github.com/Raynos/ncore
-   [3]: http://i.imgur.com/vjqri.png
+   [3]: http://expressjs.com/guide.html#routing
+   [4]: http://i.imgur.com/vjqri.png
 

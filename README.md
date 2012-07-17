@@ -120,8 +120,13 @@ This repository is an example. You can look around to see how it's working.
 Roadmap
 ---
 
-- Adding middlewares support
-- Adding views helpers support
+- Add middlewares support
+- Add views helpers support
+- Add a more thorough config.json file
+- Refactor the core.js file
+- Add database support
+- Update the documentation
+- Create a useful sample app
 
 License
 ---

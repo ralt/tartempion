@@ -135,9 +135,31 @@ function addRoutes( pies, pie, routes, app ) {
     if ( 'get' in routes ) {
         routes.get.forEach( function( route ) {
             Object.keys( route ).forEach( function( r ) {
-                app.get( r, require(
-                    path.join( __dirname, '..', 'pies', pies[ pie ].path, 'controller.js' )
-                )[ route[ r ] ]);
+
+                if ( typeof route[ r ] === 'string' ) {
+                    // If it's a string, it means that there is no middleware
+                    // so just load it
+                    app.get( r, require(
+                        path.join( __dirname, '..', 'pies', pies[ pie ].path, 'controller.js' )
+                    )[ route[ r ] ]);
+                }
+                else {
+                    // If it's not a string, it's an object.
+                    // So we must load the middleware onto the route
+
+                    // But first, let's load the middlewares in an array
+                    var middlewares = route[ r ].middlewares.map(
+                        function( middleware ) {
+                        return require(
+                            path.join( __dirname, '..', 'middlewares', 'middlewares.js' )
+                        )[ middleware ];
+                    });
+
+                    // And just load the routes with the middlewares
+                    app.get( r, middlewares, require(
+                        path.join( __dirname, '..', 'pies', pies[ pie ].path, 'controller.js' )
+                    )[ route[ r ] ]);
+                }
             });
         });
     }

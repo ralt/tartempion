@@ -2,14 +2,44 @@
     "get": [
         { "/": "home" },
         { "/pages": "index" },
-        { "/pages/new": "createForm" },
+        { "/pages/new": {
+            "method": "createForm",
+            "middlewares": [
+                "requireLogin"
+            ]}
+        },
         { "/pages/:pid": "read" },
-        { "/pages/edit/:pid": "updateForm" },
-        { "/pages/delete/:pid": "deleteForm" }
+        { "/pages/edit/:pid": {
+            "method": "updateForm",
+            "middlewares": [
+                "requireLogin"
+            ]}
+        },
+        { "/pages/delete/:pid": {
+            "method": "deleteForm",
+            "middlewares": [
+                "requireLogin"
+            ]}
+        }
     ],
     "post": [
-        { "/pages/new": "create" },
-        { "/pages/edit/:pid": "update" },
-        { "/pages/delete/:pid": "delete" }
+        { "/pages/new": {
+            "method": "create",
+            "middlewares": [
+                "requireLogin"
+            ]}
+        },
+        { "/pages/edit/:pid": {
+            "method": "update",
+            "middlewares": [
+                "requireLogin"
+            ]}
+        },
+        { "/pages/delete/:pid": {
+            "method": "delete",
+            "middlewares": [
+                "requireLogin"
+            ]}
+        }
     ]
 }

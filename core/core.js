@@ -158,6 +158,9 @@ function addRoutes( pies, pie, routes, app ) {
     }
 }
 
+/**
+ * Load *one* route
+ */
 function loadRoute( app, method, route, piePath, fn, middleware ) {
     var middlewares = [];
     // If there is some middleware, load it

@@ -120,7 +120,6 @@ This repository is an example. You can look around to see how it's working.
 Roadmap
 ---
 
-- Add middlewares support
 - Add views helpers support
 - Add a more thorough config.json file
 - Refactor the core.js file

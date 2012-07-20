@@ -135,23 +135,6 @@ function addRoutes( pies, pie, routes, app ) {
     if ( 'get' in routes ) {
         routes.get.forEach( function( route ) {
             Object.keys( route ).forEach( function( r ) {
-
-//                if ( typeof route[ r ] === 'string' ) {
-//                    // If it's a string, it means that there is no middleware
-//                    // so just load it
-//                    app.get( r, require(
-//                        path.join( __dirname, '..', 'pies', pies[ pie ].path, 'controller.js' )
-//                    )[ route[ r ] ]);
-//                }
-//                else {
-//                    // If it's not a string, it's an object.
-//                    // So we must load the middleware onto the route
-//
-//                    // And just load the routes with the middlewares
-//                    app.get( r, middlewares, require(
-//                        path.join( __dirname, '..', 'pies', pies[ pie ].path, 'controller.js' )
-//                    )[ route[ r ] ]);
-//                }
                 var middlewares = true;
                 if ( typeof route[ r ] === 'string' ) {
                     middlewares = false;
@@ -176,9 +159,10 @@ function addRoutes( pies, pie, routes, app ) {
 }
 
 function loadRoute( app, method, route, piePath, fn, middleware ) {
+    var middlewares = [];
     // If there is some middleware, load it
     if ( middleware ) {
-        var middlewares = fn.middlewares.map(
+        middlewares = fn.middlewares.map(
             function( middleware ) {
             return require(
                 path.join( __dirname, '..', 'middlewares', 'middlewares.js' )
@@ -186,12 +170,12 @@ function loadRoute( app, method, route, piePath, fn, middleware ) {
         });
 
         // Also, let's not forget to change the function to call
-        fn = fn[ method ];
+        fn = fn.method;
     }
 
     // Then, load the route
     app[ method ]( route, middlewares, require(
         path.join( __dirname, '..', 'pies', piePath, 'controller.js' )
-    )[ fn ]);
+    ) [ fn ] );
 }
 

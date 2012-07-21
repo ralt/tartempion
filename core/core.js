@@ -9,6 +9,9 @@ module.exports = function() {
     // Load the express server
     var app = express( config );
 
+    // Load the helpers
+    loadHelpers( app );
+
     // Load the pies
     var pies = loadPies();
 
@@ -180,5 +183,30 @@ function loadRoute( app, method, route, piePath, fn, middleware ) {
     app[ method ]( route, middlewares, require(
         path.join( __dirname, '..', 'pies', piePath, 'controller.js' )
     ) [ fn ] );
+}
+
+/**
+ * Load the helpers
+ */
+function loadHelpers( app ) {
+    // Load the helpers file
+    var helpers = require(
+        path.join( __dirname, '..', 'helpers', 'helpers.js' )
+    );
+
+    // First take care of the helpers
+    Object.keys( helpers.helpers ).forEach( function( helper ) {
+        app.helpers( {
+            helper: helpers.helpers[ helper ]
+        });
+    });
+
+    // Then the dynamicHelpers
+    Object.keys( helpers.dynamicHelpers ).forEach(
+        function( dynamicHelper ) {
+        app.dynamicHelpers( {
+            dynamicHelper: helpers.dynamicHelpers[ dynamicHelper ]
+        });
+    });
 }
 

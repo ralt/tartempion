@@ -123,10 +123,10 @@ Roadmap
 - Add middlewares support &#10003;
 - Add views helpers support &#10003;
 - Add a more thorough config.json file
-- Refactor the core.js file
-- Add database support
-- Update the documentation
-- Create a useful sample app
+- Refactor the core.js file &#10005;
+- Add database support &#10005;
+- Update the documentation &#10005;
+- Create a useful sample app &#10005;
 
 License
 ---

@@ -195,18 +195,11 @@ function loadHelpers( app ) {
     );
 
     // First take care of the helpers
-    Object.keys( helpers.helpers ).forEach( function( helper ) {
-        app.helpers( {
-            helper: helpers.helpers[ helper ]
-        });
-    });
+    app.helpers( helpers.helpers );
 
     // Then the dynamicHelpers
-    Object.keys( helpers.dynamicHelpers ).forEach(
-        function( dynamicHelper ) {
-        app.dynamicHelpers( {
-            dynamicHelper: helpers.dynamicHelpers[ dynamicHelper ]
-        });
-    });
+    app.dynamicHelpers( helpers.dynamicHelpers );
+
+    console.log( 'Helpers loaded.' );
 }
 

@@ -4,7 +4,7 @@ module.exports = {
      */
     helpers: {
         renderScriptsTags: function( scripts ) {
-            if ( all ) {
+            if ( scripts ) {
                 return scripts.map( function( script ) {
                     return '<script src="' + script + '"></script>';
                 }).join( '\n' );
@@ -21,7 +21,7 @@ module.exports = {
     dynamicHelpers: {
         scripts: function( req, res ) {
             return [
-                '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'
+                '//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'
             ];
         }
     }

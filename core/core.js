@@ -216,7 +216,7 @@ function loadHelpers( app ) {
 function loadDatabase( dbConf ) {
     var supported = [ 'mongodb' ];
     var db = Object.keys( dbConf ).antiDiff( supported );
-    if ( db.length === 0 {
+    if ( db.length === 0 ) {
         console.log( 'Database driver not supported.' );
         process.exit( 1 );
     }

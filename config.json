@@ -5,5 +5,21 @@
     "session": {
         "secret": "keyboard cat",
         "maxAge": 180000
+    },
+    "database": {
+        "mongodb": {
+            "databaseName": "tartempion",
+            "serverConfig": {
+                "address": "127.0.0.1",
+                "port": 27017,
+                "options": {
+                    "auto_reconnect": false,
+                    "poolSize": 4
+                }
+            },
+            "options": {
+                "native_parser": true
+            }
+        }
     }
 }

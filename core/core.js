@@ -12,11 +12,18 @@ module.exports = function() {
     // Load the helpers
     loadHelpers( app );
 
+    // Load the database module if needed
+    var dbModule;
+    if ( 'database' in config ) {
+        dbModule = loadDatabase( config.database );
+    }
+
     // Load the pies
     var pies = loadPies();
 
     // Add them to ncore
-    var ncoredPies = addPiesToNcore( pies );
+    // For now, we also add the database in there
+    var ncoredPies = addPiesToNcore( pies, dbModule );
 
     // And run them
     ncoredPies.init();
@@ -76,7 +83,7 @@ function loadPies() {
  * This function just loads the dependencies in an object
  * and initializes ncore.
  */
-function addPiesToNcore( pies ) {
+function addPiesToNcore( pies, dbModule ) {
     var ncore = require( 'ncore' ),
         deps = {};
 
@@ -202,4 +209,50 @@ function loadHelpers( app ) {
 
     console.log( 'Helpers loaded.' );
 }
+
+/**
+ * Load the database specified in the config file
+ */
+function loadDatabase( dbConf ) {
+    var supported = [ 'mongodb' ];
+    var db = Object.keys( dbConf ).antiDiff( supported );
+    if ( db.length === 0 {
+        console.log( 'Database driver not supported.' );
+        process.exit( 1 );
+    }
+    // Try to load the specified driver
+    var driver;
+    try {
+        driver = require( db );
+    }
+    catch( e ) {
+        if ( e.code === 'MODULE_NOT_FOUND' ) {
+            console.error( 'Module driver not found. Install it via npm.' );
+            process.exit( 1 );
+        }
+    }
+
+    // Now, load the correct function depending
+    // on the database used.
+    switch( db ) {
+        case 'mongodb':
+            return loadMongo( dbConf[ db ], driver );
+            break;
+    }
+}
+
+/**
+ * Load and initialize mongodb's connection
+ */
+function loadMongo( conf, driver ) {
+}
+
+/**
+ * Anti-diff method
+ */
+Array.prototype.antiDiff( function( arr ) {
+    return arr.map( function( v ) {
+        if ( !!~this.indexOf( v ) ) return v;
+    }, this ).filter( Boolean );
+};
 

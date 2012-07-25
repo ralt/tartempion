@@ -1,34 +1,38 @@
 module.exports = {
-    can: function( permission, uid, cb ) {
-        cb( true );
-    },
-
     getIndex: function( cb ) {
-        cb( [
-            {
-                'title': 'Title 1',
-                'body': 'Body 1'
-            },
-            {
-                'title': 'Title 2',
-                'body': 'Body 2'
-            }
-        ]);
+        this.db.pages.find( {}, {
+            'limit': 10,
+            'sort': 'title'
+        } ).toArray( function( err, pages ) {
+            if ( err ) throw err;
+            cb( pages )
+        });
     },
 
     getById: function( pid, cb ) {
-        cb( {
-            'title': 'Title ' + pid,
-            'body': 'Body ' + pid
+        this.db.pages.findOne( { _id: pid },
+            function( err, page ) {
+            if ( err ) throw err;
+            cb( page );
         });
     },
 
     save: function( body, cb ) {
-        cb( 'Save completed: ' + pid );
+        this.db.pages.save( body, { safe: true },
+            function( err, status ) {
+            if ( err ) throw err;
+            if ( status ) {
+                cb( status );
+            }
+        });
     },
 
     'delete': function( pid, cb ) {
-        cb( 'Delete completed: ' + pid );
+        this.db.pages.remove( { _id: pid },
+            function( err, removed ) {
+            if ( err ) throw err;
+            cb( removed );
+        });
     }
 };
 

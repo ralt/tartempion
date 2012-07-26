@@ -1,5 +1,6 @@
 module.exports = {
     getIndex: function( cb ) {
+        console.log( this.db );
         this.db.pages.find( {}, {
             'limit': 10,
             'sort': 'title'

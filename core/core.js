@@ -12,33 +12,71 @@ module.exports = function() {
     // Load the helpers
     loadHelpers( app );
 
+    // Load the pies
+    var pies = JSON.parse( fs.readFileSync( './pies.json' ) );
+
+    // Load the pies constructor
+    var constructor = loadPiesConstructor( pies );
+
     // Load the database module if needed
     var dbModule;
     if ( 'database' in config ) {
-        dbModule = loadDatabase( config.database );
+        loadDatabase( config.database, initWithDb );
+    }
+    else {
+        initWithoutDb();
     }
 
-    // Load the pies
-    var pies = loadPies();
+    function initWithDb( dbModule ) {
+        // Load the database constructor and merge it with the pies'
+        constructor = Object.merge( loadDbConstructor( dbModule, pies ), constructor );
 
-    // Add them to ncore
-    // For now, we also add the database in there
-    var ncoredPies = addPiesToNcore( pies, dbModule );
+        // Add the pies to ncore
+        var ncored = addPiesToNcore( pies, constructor );
 
-    // And run them
-    ncoredPies.init();
+        // Add the db to ncore
+        ncored.add( 'db', dbModule );
 
-    // Then, load the routes
-    loadRoutes( app, pies );
+        console.log( 'nCore constructor loaded.' );
 
-    // Run the server
-    app.listen( config.port, function() {
-        var address = app.address();
-        console.log( 'Tartempion listening on: '
-            + address.address + ':'
-            + address.port
-        );
-    });
+        // And run ncore
+        ncored.init();
+
+        // Then, load the routes
+        loadRoutes( app, pies );
+
+        // Run the server
+        app.listen( config.port, function() {
+            var address = app.address();
+            console.log( 'Tartempion listening on: '
+                + address.address + ':'
+                + address.port
+            );
+        });
+    }
+
+    function initWithoutDb() {
+        // Add the pies to ncore
+        var ncored = addPiesToNcore( pies, constructor );
+
+        console.log( 'nCore constructor loaded.' );
+
+        // And run ncore
+        ncored.init();
+
+        // Then, load the routes
+        loadRoutes( app, pies );
+
+        // Run the server
+        app.listen( config.port, function() {
+            var address = app.address();
+            console.log( 'Tartempion listening on: '
+                + address.address + ':'
+                + address.port
+            );
+        });
+    }
+
 };
 
 /**
@@ -74,18 +112,8 @@ function express( config ) {
     return app;
 }
 
-function loadPies() {
-    var pies = fs.readFileSync( './pies.json' );
-    return JSON.parse( pies );
-}
-
-/**
- * This function just loads the dependencies in an object
- * and initializes ncore.
- */
-function addPiesToNcore( pies, dbModule ) {
-    var ncore = require( 'ncore' ),
-        deps = {};
+function loadPiesConstructor( pies ) {
+    var deps = {};
 
     // Inject each model into the controller
     Object.keys( pies ).forEach( function( pie ) {
@@ -100,8 +128,28 @@ function addPiesToNcore( pies, dbModule ) {
         }
     });
 
+    // And return the constructor
+    return deps;
+}
+
+function loadDbConstructor( dbModule, pies ) {
+    // Create the constructor, we need each pie
+    var deps = {};
+    Object.keys( pies ).forEach( function( pie ) {
+        deps[ pie + 'Model' ] = { 'db': 'db' };
+    });
+    return deps;
+}
+
+/**
+ * This function just loads the dependencies in an object
+ * and initializes ncore.
+ */
+function addPiesToNcore( pies, constructor ) {
+    var ncore = require( 'ncore' );
+
     // Create an ncore instance and add the modules
-    ncore.constructor( deps );
+    ncore.constructor( constructor );
 
     Object.keys( pies ).forEach( function( pie ) {
         // For each pie, add the model and the controller
@@ -213,7 +261,7 @@ function loadHelpers( app ) {
 /**
  * Load the database specified in the config file
  */
-function loadDatabase( dbConf ) {
+function loadDatabase( dbConf, callback ) {
     var supported = [ 'mongodb' ];
     var db = Object.keys( dbConf ).antiDiff( supported );
     if ( db.length === 0 ) {
@@ -227,7 +275,7 @@ function loadDatabase( dbConf ) {
     }
     catch( e ) {
         if ( e.code === 'MODULE_NOT_FOUND' ) {
-            console.error( 'Module driver not found. Install it via npm.' );
+            console.error( 'Module driver not found. Install ' + db + ' via npm.' );
             process.exit( 1 );
         }
     }
@@ -236,7 +284,7 @@ function loadDatabase( dbConf ) {
     // on the database used.
     switch( db ) {
         case 'mongodb':
-            return loadMongo( dbConf[ db ], driver );
+            loadMongo( dbConf[ db ], driver, callback );
             break;
     }
 }
@@ -244,15 +292,40 @@ function loadDatabase( dbConf ) {
 /**
  * Load and initialize mongodb's connection
  */
-function loadMongo( conf, driver ) {
+function loadMongo( conf, mongodb, callback ) {
+    var Server = mongodb.Server,
+        Db = mongodb.Db;
+
+    var db = new Db( conf.databaseName,
+        new Server(
+            conf.serverConfig.address,
+            conf.serverConfig.port,
+            conf.options
+        ),
+        conf.options
+    );
+
+    db.open( function( err, database ) {
+        console.log( 'Database driver loaded.' );
+        callback( database );
+    });
 }
 
 /**
  * Anti-diff method
  */
-Array.prototype.antiDiff( function( arr ) {
+Array.prototype.antiDiff = function( arr ) {
     return arr.map( function( v ) {
         if ( !!~this.indexOf( v ) ) return v;
-    }, this ).filter( Boolean );
+    }, this ).filter( Boolean )[ 0 ];
+};
+
+Object.merge = function () {
+    return [].reduce.call( arguments, function ( ret, merger ) {
+        Object.keys( merger ).forEach(function ( key ) {
+            ret[ key ] = merger[ key ];
+        });
+        return ret;
+    }, {} );
 };
 

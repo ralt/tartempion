@@ -1,12 +1,14 @@
 module.exports = {
     getIndex: function( cb ) {
         console.log( this.db );
-        this.db.pages.find( {}, {
-            'limit': 10,
-            'sort': 'title'
-        } ).toArray( function( err, pages ) {
-            if ( err ) throw err;
-            cb( pages )
+        this.db.collection( 'pages', function( err, pages ) {
+            pages.find( {}, {
+                'limit': 10,
+                'sort': 'title'
+            } ).toArray( function( err, pages ) {
+                if ( err ) throw err;
+                cb( pages )
+            });
         });
     },
 

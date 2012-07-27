@@ -34,8 +34,14 @@ module.exports = function() {
         // Add the pies to ncore
         var ncored = addPiesToNcore( pies, constructor );
 
+        dbModule.collection( 'pages', function( err, pages ) {
+            pages.find().toArray( function( err, rec ) {
+                console.log( rec );
+            });
+        });
+
         // Add the db to ncore
-        ncored.add( 'db', dbModule );
+        ncored.add( 'dbModule', dbModule );
 
         console.log( 'nCore constructor loaded.' );
 
@@ -136,7 +142,7 @@ function loadDbConstructor( dbModule, pies ) {
     // Create the constructor, we need each pie
     var deps = {};
     Object.keys( pies ).forEach( function( pie ) {
-        deps[ pie + 'Model' ] = { 'db': 'db' };
+        deps[ pie + 'Model' ] = { 'db': 'dbModule' };
     });
     return deps;
 }
@@ -147,6 +153,8 @@ function loadDbConstructor( dbModule, pies ) {
  */
 function addPiesToNcore( pies, constructor ) {
     var ncore = require( 'ncore' );
+
+    console.log( constructor );
 
     // Create an ncore instance and add the modules
     ncore.constructor( constructor );

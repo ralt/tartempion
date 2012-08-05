@@ -18,71 +18,36 @@ module.exports = function() {
     // Load the pies constructor
     var constructor = loadPiesConstructor( pies );
 
-    // Load the database module if needed
-    var dbModule;
-    if ( 'database' in config ) {
-        loadDatabase( config.database, initWithDb );
-    }
-    else {
-        initWithoutDb();
-    }
+    // Load the database module
+    var dbModule = getDatabase( config.database );
 
-    function initWithDb( dbModule ) {
-        // Load the database constructor and merge it with the pies'
-        constructor = Object.merge( loadDbConstructor( dbModule, pies ), constructor );
+    // Load the database constructor and merge it with the pies'
+    constructor = Object.merge( loadDbConstructor( pies ), constructor );
 
-        // Add the pies to ncore
-        var ncored = addPiesToNcore( pies, constructor );
+    // Add the pies to ncore
+    var ncored = addPiesToNcore( pies, constructor );
 
-        dbModule.collection( 'pages', function( err, pages ) {
-            pages.find().toArray( function( err, rec ) {
-                console.log( rec );
-            });
-        });
+    // Add the db to ncore
+    ncored.add( 'dbModule',
+        require( './core/databases/' + dbModule + '.js' )( config.database )
+    );
 
-        // Add the db to ncore
-        ncored.add( 'dbModule', dbModule );
+    console.log( 'nCore constructor loaded.' );
 
-        console.log( 'nCore constructor loaded.' );
+    // And run ncore
+    ncored.init();
 
-        // And run ncore
-        ncored.init();
+    // Then, load the routes
+    loadRoutes( app, pies );
 
-        // Then, load the routes
-        loadRoutes( app, pies );
-
-        // Run the server
-        app.listen( config.port, function() {
-            var address = app.address();
-            console.log( 'Tartempion listening on: '
-                + address.address + ':'
-                + address.port
-            );
-        });
-    }
-
-    function initWithoutDb() {
-        // Add the pies to ncore
-        var ncored = addPiesToNcore( pies, constructor );
-
-        console.log( 'nCore constructor loaded.' );
-
-        // And run ncore
-        ncored.init();
-
-        // Then, load the routes
-        loadRoutes( app, pies );
-
-        // Run the server
-        app.listen( config.port, function() {
-            var address = app.address();
-            console.log( 'Tartempion listening on: '
-                + address.address + ':'
-                + address.port
-            );
-        });
-    }
-
+    // Run the server
+    app.listen( config.port, function() {
+        var address = app.address();
+        console.log( 'Tartempion listening on: '
+            + address.address + ':'
+            + address.port
+        );
+    });
 };
 
 /**
@@ -138,7 +103,7 @@ function loadPiesConstructor( pies ) {
     return deps;
 }
 
-function loadDbConstructor( dbModule, pies ) {
+function loadDbConstructor( pies ) {
     // Create the constructor, we need each pie
     var deps = {};
     Object.keys( pies ).forEach( function( pie ) {
@@ -269,54 +234,30 @@ function loadHelpers( app ) {
 /**
  * Load the database specified in the config file
  */
-function loadDatabase( dbConf, callback ) {
-    var supported = [ 'mongodb' ];
+function getDatabase( dbConf ) {
+    var supported = [ 'mongodb', 'memory' ];
     var db = Object.keys( dbConf ).antiDiff( supported );
     if ( db.length === 0 ) {
         console.log( 'Database driver not supported.' );
         process.exit( 1 );
     }
-    // Try to load the specified driver
-    var driver;
-    try {
-        driver = require( db );
-    }
-    catch( e ) {
-        if ( e.code === 'MODULE_NOT_FOUND' ) {
-            console.error( 'Module driver not found. Install ' + db + ' via npm.' );
-            process.exit( 1 );
+
+    // If it's not the special "memory" database
+    if ( db[ 0 ] !== 'memory' ) {
+        // Try to load the specified driver
+        var driver;
+        try {
+            driver = require( db );
+        }
+        catch( e ) {
+            if ( e.code === 'MODULE_NOT_FOUND' ) {
+                console.error( 'Module driver not found. Install ' + db + ' via npm.' );
+                process.exit( 1 );
+            }
         }
     }
 
-    // Now, load the correct function depending
-    // on the database used.
-    switch( db ) {
-        case 'mongodb':
-            loadMongo( dbConf[ db ], driver, callback );
-            break;
-    }
-}
-
-/**
- * Load and initialize mongodb's connection
- */
-function loadMongo( conf, mongodb, callback ) {
-    var Server = mongodb.Server,
-        Db = mongodb.Db;
-
-    var db = new Db( conf.databaseName,
-        new Server(
-            conf.serverConfig.address,
-            conf.serverConfig.port,
-            conf.options
-        ),
-        conf.options
-    );
-
-    db.open( function( err, database ) {
-        console.log( 'Database driver loaded.' );
-        callback( database );
-    });
+    return db[ 0 ];
 }
 
 /**

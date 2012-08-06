@@ -22,7 +22,7 @@ MongoModule.setup = function() {
 };
 
 MongoModule.collection = function() {
-    this.db.collection.call( this, arguments );
+    this.db.collection.apply( this, arguments );
 };
 
 module.exports = function( config ) {

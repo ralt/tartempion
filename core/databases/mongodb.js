@@ -2,9 +2,7 @@ var mongodb = require( 'mongodb' ),
     Server = mongodb.Server,
     Db = mongodb.Db;
 
-var MongoModule = function( config ) {
-    this.config = config;
-};
+var MongoModule = {};
 
 MongoModule.setup = function() {
     // Initialize the db connection
@@ -12,12 +10,12 @@ MongoModule.setup = function() {
         new Server(
             this.config.serverConfig.address,
             this.config.serverConfig.port,
-            this.config.options
+            this.config.serverConfig.options
         ),
         this.config.options
     );
 
-    this.db.open( function( err, database ) {
+    this.db.open( function( err ) {
         if ( err ) throw err;
         console.log( 'Database driver loaded.' );
     });
@@ -27,5 +25,8 @@ MongoModule.collection = function() {
     this.db.collection.call( this, arguments );
 };
 
-module.exports = MongoModule;
+module.exports = function( config ) {
+    MongoModule.config = config;
+    return MongoModule;
+};
 

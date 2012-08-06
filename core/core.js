@@ -29,7 +29,9 @@ module.exports = function() {
 
     // Add the db to ncore
     ncored.add( 'dbModule',
-        require( './core/databases/' + dbModule + '.js' )( config.database )
+        require(
+            './databases/' + dbModule + '.js'
+        )( config.database[ dbModule ] )
     );
 
     console.log( 'nCore constructor loaded.' );
@@ -118,8 +120,6 @@ function loadDbConstructor( pies ) {
  */
 function addPiesToNcore( pies, constructor ) {
     var ncore = require( 'ncore' );
-
-    console.log( constructor );
 
     // Create an ncore instance and add the modules
     ncore.constructor( constructor );
@@ -243,7 +243,7 @@ function getDatabase( dbConf ) {
     }
 
     // If it's not the special "memory" database
-    if ( db[ 0 ] !== 'memory' ) {
+    if ( db !== 'memory' ) {
         // Try to load the specified driver
         var driver;
         try {
@@ -257,7 +257,7 @@ function getDatabase( dbConf ) {
         }
     }
 
-    return db[ 0 ];
+    return db;
 }
 
 /**

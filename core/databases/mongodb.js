@@ -6,7 +6,7 @@ var MongoModule = {};
 
 MongoModule.setup = function() {
     // Initialize the db connection
-    this.db = new Db( this.config.databaseName,
+    var client = new Db( this.config.databaseName,
         new Server(
             this.config.serverConfig.address,
             this.config.serverConfig.port,
@@ -15,8 +15,11 @@ MongoModule.setup = function() {
         this.config.options
     );
 
-    this.db.open( function( err ) {
+    var that = this;
+
+    client.open( function( err, db ) {
         if ( err ) throw err;
+        that.db = db;
         console.log( 'Database driver loaded.' );
     });
 };

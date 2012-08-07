@@ -1,5 +1,6 @@
 module.exports = {
     getIndex: function( cb ) {
+        console.log( this.db );
         this.db.collection( 'pages', function( err, pages ) {
             if ( err ) throw err;
             pages.find( {}, {

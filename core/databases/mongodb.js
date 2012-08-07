@@ -1,6 +1,7 @@
 var mongodb = require( 'mongodb' ),
     Server = mongodb.Server,
-    Db = mongodb.Db;
+    Db = mongodb.Db,
+    database;
 
 var MongoModule = {};
 
@@ -15,17 +16,15 @@ MongoModule.setup = function() {
         this.config.options
     );
 
-    var that = this;
-
     client.open( function( err, db ) {
         if ( err ) throw err;
-        that.db = db;
+        database = db;
         console.log( 'Database driver loaded.' );
     });
 };
 
 MongoModule.collection = function() {
-    this.db.collection.apply( this, arguments );
+    database.collection.apply( this, arguments );
 };
 
 module.exports = function( config ) {

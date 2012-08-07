@@ -6,7 +6,7 @@ var mongodb = require( 'mongodb' ),
 var MongoModule = {};
 
 MongoModule.setup = function() {
-    // Initialize the db connection
+    // Create a mongo client object
     var client = new Db( this.config.databaseName,
         new Server(
             this.config.serverConfig.address,
@@ -16,6 +16,9 @@ MongoModule.setup = function() {
         this.config.options
     );
 
+    var that = this;
+
+    // Open the connection
     client.open( function( err, db ) {
         if ( err ) throw err;
         database = db;
@@ -24,7 +27,7 @@ MongoModule.setup = function() {
 };
 
 MongoModule.collection = function() {
-    database.collection.apply( this, arguments );
+    database.collection.apply( database, arguments );
 };
 
 module.exports = function( config ) {

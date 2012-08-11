@@ -43,7 +43,7 @@ module.exports = function() {
     loadRoutes( app, pies );
 
     // Run the server
-    app.listen( config.port, function() {
+    app.listen( config.server.port, function() {
         var address = app.address();
         console.log( 'Tartempion listening on: '
             + address.address + ':'
@@ -67,9 +67,9 @@ function express( config ) {
     // Configuration of express
     app.configure( function() {
         this.set( 'views', path.join(
-            __dirname, '..', config.views
+            __dirname, '..', config.templates.folder
         ));
-        this.set( 'view engine', config[ 'view engine' ] );
+        this.set( 'view engine', config.templates[ 'template engine' ] );
         this.use( express.bodyParser() );
         this.use( express.cookieParser() );
         if ( 'session' in config ) {

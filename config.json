@@ -1,7 +1,12 @@
 {
-    "port": 8080,
-    "views": "templates",
-    "view engine": "ejs",
+    "server": {
+        "address": "127.0.0.1",
+        "port": 8080
+    },
+    "templates": {
+        "folder": "templates",
+        "template engine": "ejs"
+    },
     "session": {
         "secret": "keyboard cat",
         "maxAge": 180000

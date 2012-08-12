@@ -1,28 +1,37 @@
 var fs = require( 'fs' ),
     path = require( 'path' );
 
+// Require the prototype methods we need
+require( './prototype.js' );
+
 module.exports = function() {
     // Load the configuration
-    var config = loadConfig();
+    var config = JSON.parse( fs.readFileSync( './config.json' ) );
     console.log( 'Configuration loaded.' );
 
     // Load the express server
-    var app = express( config );
+    var app = require( './express.js' )( config );
 
     // Load the helpers
-    loadHelpers( app );
+    require( './helpers.js' )( app );
 
-    // Load the pies
-    var pies = JSON.parse( fs.readFileSync( './pies.json' ) );
+    // Load the pies and the pies' handler
+    var pies = JSON.parse( fs.readFileSync( './pies.json' ) ),
+        piesHandler = require( './pies.js' );
 
     // Load the pies constructor
-    var constructor = loadPiesConstructor( pies );
+    var constructor = piesHandler.loadConstructor( pies );
+
+    // Load the db handler
+    var dbHandler = require( './database.js' );
 
     // Load the database module
-    var dbModule = getDatabase( config.database );
+    var dbModule = dbHandler.getDatabase( config.database );
 
     // Load the database constructor and merge it with the pies'
-    constructor = Object.merge( loadDbConstructor( pies ), constructor );
+    constructor = Object.merge(
+        dbHandler.loadConstructor( pies ), constructor
+    );
 
     // Add the pies to ncore
     var ncored = addPiesToNcore( pies, constructor );
@@ -51,68 +60,6 @@ module.exports = function() {
         );
     });
 };
-
-/**
- * Load the configuration file and return it as an object
- */
-function loadConfig() {
-    var config = fs.readFileSync( './config.json' );
-    return JSON.parse( config );
-}
-
-function express( config ) {
-    var express = require( 'express' ),
-        app = express.createServer();
-
-    // Configuration of express
-    app.configure( function() {
-        this.set( 'views', path.join(
-            __dirname, '..', config.templates.folder
-        ));
-        this.set( 'view engine', config.templates[ 'template engine' ] );
-        this.use( express.bodyParser() );
-        this.use( express.cookieParser() );
-        if ( 'session' in config ) {
-            this.use( express.session( {
-                secret: config.session.secret,
-                cookie: {
-                    maxAge: config.session.maxAge
-                }
-            }));
-        }
-    });
-
-    return app;
-}
-
-function loadPiesConstructor( pies ) {
-    var deps = {};
-
-    // Inject each model into the controller
-    Object.keys( pies ).forEach( function( pie ) {
-        deps[ pie + "Controller" ] = {
-            "model": pie + "Model"
-        };
-        // Inject each pie's dependency in the pie (controller and model)
-        if ( 'dependencies' in pies[ pie ] ) {
-            pies[ pie ].dependencies.forEach( function( dep ) {
-                deps[ pie + "Controller" ][ dep ] = dep + "Controller";
-            });
-        }
-    });
-
-    // And return the constructor
-    return deps;
-}
-
-function loadDbConstructor( pies ) {
-    // Create the constructor, we need each pie
-    var deps = {};
-    Object.keys( pies ).forEach( function( pie ) {
-        deps[ pie + 'Model' ] = { 'db': 'dbModule' };
-    });
-    return deps;
-}
 
 /**
  * This function just loads the dependencies in an object
@@ -212,69 +159,4 @@ function loadRoute( app, method, route, piePath, fn, middleware ) {
         path.join( __dirname, '..', 'pies', piePath, 'controller.js' )
     ) [ fn ] );
 }
-
-/**
- * Load the helpers
- */
-function loadHelpers( app ) {
-    // Load the helpers file
-    var helpers = require(
-        path.join( __dirname, '..', 'helpers', 'helpers.js' )
-    );
-
-    // First take care of the helpers
-    app.helpers( helpers.helpers );
-
-    // Then the dynamicHelpers
-    app.dynamicHelpers( helpers.dynamicHelpers );
-
-    console.log( 'Helpers loaded.' );
-}
-
-/**
- * Load the database specified in the config file
- */
-function getDatabase( dbConf ) {
-    var supported = [ 'mongodb', 'memory' ];
-    var db = Object.keys( dbConf ).antiDiff( supported );
-    if ( db.length === 0 ) {
-        console.log( 'Database driver not supported.' );
-        process.exit( 1 );
-    }
-
-    // If it's not the special "memory" database
-    if ( db !== 'memory' ) {
-        // Try to load the specified driver
-        var driver;
-        try {
-            driver = require( db );
-        }
-        catch( e ) {
-            if ( e.code === 'MODULE_NOT_FOUND' ) {
-                console.error( 'Module driver not found. Install ' + db + ' via npm.' );
-                process.exit( 1 );
-            }
-        }
-    }
-
-    return db;
-}
-
-/**
- * Anti-diff method
- */
-Array.prototype.antiDiff = function( arr ) {
-    return arr.map( function( v ) {
-        if ( !!~this.indexOf( v ) ) return v;
-    }, this ).filter( Boolean )[ 0 ];
-};
-
-Object.merge = function () {
-    return [].reduce.call( arguments, function ( ret, merger ) {
-        Object.keys( merger ).forEach(function ( key ) {
-            ret[ key ] = merger[ key ];
-        });
-        return ret;
-    }, {} );
-};
 

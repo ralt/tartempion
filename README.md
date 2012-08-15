@@ -124,9 +124,10 @@ Roadmap
 - Add views helpers support &#10003;
 - Add database support &#10003;
 - Add a more thorough config.json file &#10003;
+- Create a useful sample app &#10003; ([done][5])
 - Refactor the core.js file &infin;
+- Create a CLI interface to use tartempion globally &#10005;
 - Update the documentation &#10005;
-- Create a useful sample app &#10005;
 
 License
 ---
@@ -146,4 +147,5 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    [2]: https://github.com/Raynos/ncore
    [3]: http://expressjs.com/guide.html#routing
    [4]: http://i.imgur.com/vjqri.png
+   [5]: https://github.com/Ralt/tartempion-blog
 

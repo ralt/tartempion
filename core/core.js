@@ -160,3 +160,10 @@ function loadRoute( app, method, route, piePath, fn, middleware ) {
     ) [ fn ] );
 }
 
+// Add an event object to have it available
+// to end-apps.
+( function() {
+    var EventEmitter = require( 'events' ).EventEmitter;
+    module.exports.EventEmitter = new EventEmitter;
+}());
+

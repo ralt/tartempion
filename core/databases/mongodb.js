@@ -1,6 +1,7 @@
 var mongodb = require( 'mongodb' ),
     Server = mongodb.Server,
     Db = mongodb.Db,
+    evt = require( '../core.js' ).EventEmitter,
     database;
 
 var MongoModule = {};
@@ -23,6 +24,7 @@ MongoModule.setup = function() {
         if ( err ) throw err;
         database = db;
         console.log( 'Database driver loaded.' );
+        evt.emit( 'db:connected' );
     });
 };
 

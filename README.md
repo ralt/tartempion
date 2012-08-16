@@ -126,6 +126,8 @@ Roadmap
 - Add a more thorough config.json file &#10003;
 - Create a useful sample app &#10003; ([done][5])
 - Refactor the core.js file &infin;
+- Create a mocha interface to test the pies (individually or all together) &#10005;
+- Create a module pushable to npm &#10005;
 - Create a CLI interface to use tartempion globally &#10005;
 - Update the documentation &#10005;
 

@@ -33,6 +33,7 @@ module.exports = {
         // with the correct datas.
 
         var packagePath = path.join( current, project, 'package.json' );
+
         // First, get the datas
         var pack = JSON.parse( fs.readFileSync( packagePath ));
 

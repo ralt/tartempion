@@ -39,8 +39,8 @@
 <li>Refactor the core.js file ✓</li>
 <li>Create a module pushable to npm ✓</li>
 <li>Push to npm ✓</li>
-<li>Create a CLI interface to use tartempion globally ∞</li>
-<li>Create a mocha interface to test the pies (individually or all together) ✕</li>
+<li>Create a CLI interface to use tartempion globally &#10003;</li>
+<li>Create a mocha interface to test the pies (individually or all together) &infin;</li>
 <li>Create tests for tartempion ✕</li>
 <li>Update the documentation ✕</li>
 </ul><h2>License</h2>

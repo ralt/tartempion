@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Tartempion by Ralt</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Tartempion</h1>
+        <p>The web framework for people who like to eat some pie.</p>
+
+        <p class="view"><a href="https://github.com/Ralt/tartempion">View the Project on GitHub <small>Ralt/tartempion</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/Ralt/tartempion/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/Ralt/tartempion/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/Ralt/tartempion">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p><img src="http://i.imgur.com/fJOAn.png" alt="tartempion"></p>
+
+<h2>Introduction</h2>
+
+<p>Firstly, there are some good web frameworks out there, so why release another one, heh? Well, the frameworks weren't good enough for me.</p>
+
+<p><a href="http://expressjs.com">express</a>, the best I've tried (personal opinion) is really great. It handles a lot of stuff for you, like middlewares, sessions, templates, cookies, etc. The problem when you develop on it though, is that you have to pass the app object around in arguments if you're using several files. And everybody uses several files.</p>
+
+<p>Besides, express doesn't dictate you an architecture. This is great since it leaves you a lot of flexibility, but it's not the fastest way to create new projects. Time is money.</p>
+
+<p>Another great project I came across to is <a href="https://github.com/Raynos/ncore">ncore</a>. This module allows you to have a dependency injection handler. This is kind of really needed when you start having a lot of files in your project. This way, you don't have to pass the essential objects around in arguments. And we all know that global variables are evil :-).</p>
+
+<p>This is why I've made <code>tartempion</code>. A module allowing you to develop websites while just caring about the business logic. You don't have to care about passing some objects in arguments, or how to create the session handler etc etc. Just set your routes, controllers and models, and you're good to go. Seriously.</p>
+
+<h2>Installation</h2>
+
+<pre><code>npm install tartempion
+</code></pre>
+
+<h2>Example app</h2>
+
+<p>I have written a blog using <code>tartempion</code>. The repository is available there: <a href="https://github.com/Ralt/tartempion-blog">tartempion-blog</a>.</p>
+
+<h2>Roadmap</h2>
+
+<ul>
+<li>Add middlewares support ✓</li>
+<li>Add views helpers support ✓</li>
+<li>Add database support ✓</li>
+<li>Add a more thorough config.json file ✓</li>
+<li>Create a useful sample app ✓ ([done][5])</li>
+<li>Refactor the core.js file ✓</li>
+<li>Create a module pushable to npm ✓</li>
+<li>Push to npm ✓</li>
+<li>Create a CLI interface to use tartempion globally ∞</li>
+<li>Create a mocha interface to test the pies (individually or all together) ✕</li>
+<li>Create tests for tartempion ✕</li>
+<li>Update the documentation ✕</li>
+</ul><h2>License</h2>
+
+<p>The MIT License (MIT)</p>
+
+<p>Copyright (c) 2012 Florian Margaine</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/Ralt">Ralt</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-34172116-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>

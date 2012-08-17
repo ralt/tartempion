@@ -1,5 +1,4 @@
-var check = require( './check.js' ),
-    cp = require( 'child_process' );
+var cp = require( 'child_process' );
 
 module.exports = {
     // Run tartempion
@@ -12,8 +11,7 @@ module.exports = {
         // Just run tartempion with the --help option
         cp.exec( 'tartempion --help',
             function( err, stdout, stderr ) {
-            console.log( stdout );
-            console.log( stderr );
+            process.stdout.write( stdout );
         });
     }
 };

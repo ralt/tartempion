@@ -1,158 +1,57 @@
-tartempion
-===
+<h1>tartempion</h1>
 
-![tartempion][0]
+<p>The web framework for people who like to eat some pie.</p>
 
-Introduction
----
+<p><img src="http://i.imgur.com/fJOAn.png" alt="tartempion"></p>
 
-All the web frameworks out there don't suit my needs.
+<h2>Why should you use tartempion?</h2>
 
-They're good, really, and I inspired myself from them to build `tartempion`.
+<ul>
+    <li>You want to reuse parts of your code across different projects.</li>
+    <li>You want to inject dependencies without thinking about it.</li>
+    <li><span>You want [express](<a class="linkclass" href="http://expressjs.com">http://expressjs.com</a>) but you feel like it's too slow to set up a new project.</span></li>
+    <li>You want to have well-organized projects.</li>
+</ul>
 
-But they either miss the dependency injection, or they're not decoupled enough. Or none of them.
+<p>Then <code>tartempion</code> is for you!</p>
 
-So I built my own framework, based on [express][1] and [ncore][2].
+<h2>Installation</h2>
 
-Express is well known, it is already a web framework, and `tartempion` basically wraps express
-with the dependency injection niceness that ncore provides.
+<pre><code>npm install tartempion
+</code></pre>
 
-Documentation
----
+<h2>Example application</h2>
 
-### The pies concept
+<p>There is a blog using <code>tartempion</code>. The repository is available there: <a href="https://github.com/Ralt/tartempion-blog">tartempion-blog</a>.</p>
 
-In tartempion, there are pies. A pie is a kind. It has its own controller, and its own model.
-It has only one of them.
+<h2>Documentation</h2>
 
-There, you grasped the pies concept.
+<p>Coming up soon on <a href="https://github.com/Ralt/tartempion/wiki">the wiki</a>.</p>
 
-`tartempion` has no way to know which pies are installed though. So you have to define them somewhere.
-This somewhere is the `pies.json` file in the root folder.
+<h2>Roadmap</h2>
 
-This is how it is defined:
+<ul>
+<li>Add middlewares support ✓</li>
+<li>Add views helpers support ✓</li>
+<li>Add database support ✓</li>
+<li>Add a more thorough config.json file ✓</li>
+<li>Create a useful sample app ✓ ([done][5])</li>
+<li>Refactor the core.js file ✓</li>
+<li>Create a module pushable to npm ✓</li>
+<li>Push to npm ✓</li>
+<li>Create a CLI interface to use tartempion globally ∞</li>
+<li>Create a mocha interface to test the pies (individually or all together) ✕</li>
+<li>Create tests for tartempion ✕</li>
+<li>Update the documentation ✕</li>
+</ul><h2>License</h2>
 
-    {
-        "pieName": {
-            "path": "pathToPie"
-        },
-        "anotherPie": {
-            "path": "pathToAnother",
-            "dependencies": [
-                "pieName"
-            ]
-        }
-    }
+<p>The MIT License (MIT)</p>
 
-Firstly, it is important to know that all the pies will remain in the `pies/` folder.
+<p>Copyright (c) 2012 Florian Margaine</p>
 
-`pieName` is the name of the pie. `pathToPie` is the name of the path, not including `pies/`. Finally, `dependencies` defines the dependencies of this pie. This way, you will be able to reach `pieName`'s controller in `anotherPie`.
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
 
-As simple as that.
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
 
-A pie is composed of *at least* three files: `controller.js`, `model.js` and `routes.json`.
-
-### Define some routes
-
-All the pies define the routes they handle. They're defined in the `routes.json` file. Here is an example of such a file:
-
-    {
-        "get": [
-            { "/pages": "index" },
-            { "/pages/:pid": "read" },
-            { "/pages/edit/:pid": "editForm" }
-        ],
-        "post": [
-            { "/pages/edit/:pid": "edit" }
-        ]
-    }
-
-As you can see, `GET` and `POST` routes are separated. You define the route to use
-(express.js routes, [look here for a more thorough documentation][3]), and the function
-in the controller.
-
-For example, in the `controller.js` file of this pie, we will find this:
-
-    module.exports = {
-        index: function( req, res ) {
-        },
-
-        read: function( req, res ) {
-        },
-
-        editForm: function( req, res ) {
-        },
-
-        edit: function( req, res ) {
-        }
-    };
-
-That's pretty much it about the routes.
-
-### Control everything
-
-Just a little while ago, you saw how a controller is defined.
-
-More information:
-
-- The `controller.js` file is expected to return an object having all the methods specified in the routes.
-- In these methods, you have access to `this.model`. This object is the model defined in `model.js`.
-- If you have defined dependencies in the `pies.json` file, you will access them using `this.pieName`.
-- If you have a `setup` method or an `init` method, they will be run once when the server will start. (setup first)
-
-### Model all the things
-
-![Model all the things][4]
-
-The `model.js` file is where you define the methods usable in the `controller.js` file.
-
-This is also where you define your model. If you use mongoose, this'd be where the Schemas are defined.
-
-### And don't worry
-
-Then, just don't worry! The models are automatically injected in the controllers, the dependencies are injected wherever it's needed! So you don't have to worry. Just code.
-
-Installation
----
-
-`git clone https://github.com/Ralt/tartempion && cd tartempion && npm install`
-
-This repository is an example. You can look around to see how it's working.
-
-Roadmap
----
-
-- Add middlewares support &#10003;
-- Add views helpers support &#10003;
-- Add database support &#10003;
-- Add a more thorough config.json file &#10003;
-- Create a useful sample app &#10003; ([done][5])
-- Refactor the core.js file &#10003;
-- Create a module pushable to npm &#10003;
-- Push to npm &#10003;
-- Create a CLI interface to use tartempion globally &infin;
-- Create a mocha interface to test the pies (individually or all together) &#10005;
-- Create tests for tartempion &#10005;
-- Update the documentation &#10005;
-
-License
----
-
-The MIT License (MIT)
-
-Copyright (c) 2012 Florian Margaine
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-
-   [0]: http://i.imgur.com/fJOAn.png
-   [1]: http://expressjs.com
-   [2]: https://github.com/Raynos/ncore
-   [3]: http://expressjs.com/guide.html#routing
-   [4]: http://i.imgur.com/vjqri.png
-   [5]: https://github.com/Ralt/tartempion-blog
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
 

@@ -17,7 +17,7 @@
 
 <h2>Installation</h2>
 
-<pre><code>npm install tartempion
+<pre><code>npm install tartempion -g
 </code></pre>
 
 <h2>Example application</h2>

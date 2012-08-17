@@ -9,23 +9,17 @@ program.version( '0.0.3' );
 program
     .command( 'create-project <project>' )
     .description( 'Create a project named <project>' )
-    .action( function( project ) {
-        console.log( project );
-    });
+    .action( require( './project.js' ).createProject );
 
 program
     .command( 'create-pie <pie>' )
     .description( 'Create a pie named <pie>' )
-    .action( function( pie ) {
-        console.log( pie );
-    });
+    .action( require( './pie.js' ).createPie );
 
 program
     .command( 'run' )
     .description( 'Run tartempion' )
-    .action( function() {
-        console.log( 'tartempion running' );
-    });
+    .action( require( './system.js' ).run );
 
 program.parse( process.argv );
 

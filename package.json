@@ -20,6 +20,7 @@
         "mocha": "1.3.x"
     },
     "main": "./lib/core.js",
+    "bin": "./cli/tartempion.js",
     "bugs": {
         "url": "https://github.com/Ralt/tartempion/issues"
     },

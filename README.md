@@ -9,7 +9,7 @@
 <ul>
     <li>You want to reuse parts of your code across different projects.</li>
     <li>You want to inject dependencies without thinking about it.</li>
-    <li><span>You want [express](<a class="linkclass" href="http://expressjs.com">http://expressjs.com</a>) but you feel like it's too slow to set up a new project.</span></li>
+    <li><span>You want <a href="http://expressjs.com">express</a> but you feel like it's too slow to set up a new project.</span></li>
     <li>You want to have well-organized projects.</li>
 </ul>
 

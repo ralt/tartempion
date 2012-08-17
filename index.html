@@ -30,26 +30,25 @@
       <section>
         <p><img src="http://i.imgur.com/fJOAn.png" alt="tartempion"></p>
 
-<h2>Introduction</h2>
+<h2>Why should you use tartempion?</h2>
 
-<p>Firstly, there are some good web frameworks out there, so why release another one, heh? Well, the frameworks weren't good enough for me.</p>
+<ul>
+    <li>You want to reuse parts of your code across different projects.</li>
+    <li>You want to inject dependencies without thinking about it.</li>
+    <li>You want [express](http://expressjs.com) but you feel like it's too slow to set up a new project.</li>
+    <li>You want to have well-organized projects.</li>
+</ul>
 
-<p><a href="http://expressjs.com">express</a>, the best I've tried (personal opinion) is really great. It handles a lot of stuff for you, like middlewares, sessions, templates, cookies, etc. The problem when you develop on it though, is that you have to pass the app object around in arguments if you're using several files. And everybody uses several files.</p>
-
-<p>Besides, express doesn't dictate you an architecture. This is great since it leaves you a lot of flexibility, but it's not the fastest way to create new projects. Time is money.</p>
-
-<p>Another great project I came across to is <a href="https://github.com/Raynos/ncore">ncore</a>. This module allows you to have a dependency injection handler. This is kind of really needed when you start having a lot of files in your project. This way, you don't have to pass the essential objects around in arguments. And we all know that global variables are evil :-).</p>
-
-<p>This is why I've made <code>tartempion</code>. A module allowing you to develop websites while just caring about the business logic. You don't have to care about passing some objects in arguments, or how to create the session handler etc etc. Just set your routes, controllers and models, and you're good to go. Seriously.</p>
+<p>Then <code>tartempion</code> is for you!</p>
 
 <h2>Installation</h2>
 
 <pre><code>npm install tartempion
 </code></pre>
 
-<h2>Example app</h2>
+<h2>Example application</h2>
 
-<p>I have written a blog using <code>tartempion</code>. The repository is available there: <a href="https://github.com/Ralt/tartempion-blog">tartempion-blog</a>.</p>
+<p>There is a blog using <code>tartempion</code>. The repository is available there: <a href="https://github.com/Ralt/tartempion-blog">tartempion-blog</a>.</p>
 
 <h2>Documentation</h2>
 
@@ -83,7 +82,7 @@
 <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
       </section>
       <footer>
-        <p>This project is maintained by <a href="https://github.com/Ralt">Ralt</a></p>
+        <p>This project is maintained by <a href="https://github.com/Ralt">Florian Margaine</a></p>
         <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
     </div>

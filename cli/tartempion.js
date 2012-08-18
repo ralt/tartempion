@@ -31,3 +31,8 @@ program
 
 program.parse( process.argv );
 
+// Special case: no argument. Display the help.
+if ( process.argv.length < 3 ) {
+    system.help();
+}
+

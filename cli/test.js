@@ -1,13 +1,45 @@
 var fs = require( 'fs' ),
-    path = require( 'path' ),
-    mocha = require( 'mocha' );
+    path = require( 'path' );
 
 module.exports = {
+    getEngine: function( engine ) {
+        // This function is necessary to only require once
+        // even when a function is called several times
+        if ( !this.engine ) {
+            this.engine = require(
+                path.join( __dirname, 'tests', engine + '.js' )
+            );
+        }
+        return this.engine;
+    },
+
     test: function( pie ) {
         // First, get the pie if it's not an object
         if ( typeof pie === 'string' ) {
             pie = getPie( pie );
         }
+
+        // Get the config to know which test engine to use
+        var config = JSON.parse(
+            fs.readFileSync(
+                path.join( process.cwd(), 'config.json' )
+            )
+        );
+
+        // Set the list of supported test engines
+        var supported = [
+            'mocha'
+        ];
+
+        // If the test engine isn't part of the supported ones,
+        // stop the program immediately.
+        if ( !~supported.indexOf( config[ 'test engine' ] ) ) {
+            console.error( 'Test engine not supported.' );
+            process.exit( -1 );
+        }
+
+        // Run the test engine
+        module.exports.getEngine( config[ 'test engine' ] ).test( pie );
     },
 
     testAll: function() {
@@ -16,8 +48,8 @@ module.exports = {
 
         // For each pie, run mocha
         Object.keys( pies ).forEach( function( pie ) {
-            this.test( pies[ pie ] );
-        }, this );
+            module.exports.test( pies[ pie ] );
+        });
     }
 };
 

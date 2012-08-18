@@ -3,11 +3,22 @@
  * File implementing the CLI interface
  */
 var program = require( 'commander' ),
+    test = require( './test.js' ),
     project = require( './project.js' ),
     pie = require( './pie.js' ),
     system = require( './system.js' );
 
 program.version( '0.0.3' );
+
+program
+    .command( 'test <pie>' )
+    .description( 'Run the tests in the pie <pie>' )
+    .action( test.test );
+
+program
+    .command( 'test-all' )
+    .description( 'Run the tests in all the pies' )
+    .action( test.testAll );
 
 program
     .command( 'create-project <project>' )

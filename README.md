@@ -29,13 +29,9 @@
 
 <h2>Roadmap</h2>
 
-<ul>
-<li>Create a mocha interface to test the pies (individually or all together) &infin;</li>
-<li>Create tests for tartempion ✕</li>
-<li>Update the documentation ✕</li>
-<li>Add session store support &#10005;</li>
-<li>Add support for other databases &#10005;</li>
-</ul><h2>License</h2>
+<p>The full roadmap is constantly changing. For a full roadmap, see <a href="https://github.com/Ralt/tartempion/issues?labels=roadmap">the issues tagged "roadmap"</a>.
+
+<h2>License</h2>
 
 <p>The MIT License (MIT)</p>
 

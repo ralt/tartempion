@@ -34,7 +34,7 @@
 <li>Create tests for tartempion ✕</li>
 <li>Update the documentation ✕</li>
 <li>Add session store support &#10005;</li>
-<li>Add support for other databases</li>
+<li>Add support for other databases &#10005;</li>
 </ul><h2>License</h2>
 
 <p>The MIT License (MIT)</p>

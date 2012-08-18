@@ -1,5 +1,4 @@
-<h1>tartempion</h1>
-
+<h1>tartempion</h1> 
 <p>The web framework for people who like to eat some pie.</p>
 
 <p><img src="http://i.imgur.com/fJOAn.png" alt="tartempion"></p>
@@ -31,18 +30,11 @@
 <h2>Roadmap</h2>
 
 <ul>
-<li>Add middlewares support ✓</li>
-<li>Add views helpers support ✓</li>
-<li>Add database support ✓</li>
-<li>Add a more thorough config.json file ✓</li>
-<li>Create a useful sample app ✓ ([done][5])</li>
-<li>Refactor the core.js file ✓</li>
-<li>Create a module pushable to npm ✓</li>
-<li>Push to npm ✓</li>
-<li>Create a CLI interface to use tartempion globally &#10003;</li>
 <li>Create a mocha interface to test the pies (individually or all together) &infin;</li>
 <li>Create tests for tartempion ✕</li>
 <li>Update the documentation ✕</li>
+<li>Add session store support &#10005;</li>
+<li>Add support for other databases</li>
 </ul><h2>License</h2>
 
 <p>The MIT License (MIT)</p>

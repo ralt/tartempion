@@ -27,9 +27,11 @@ module.exports = {
         );
 
         // Set the list of supported test engines
-        var supported = [
-            'mocha'
-        ];
+        var supported = JSON.parse(
+            fs.readFileSync(
+                path.join( __dirname, '..', 'supported.json' )
+            )
+        )[ 'test engines' ];
 
         // If the test engine isn't part of the supported ones,
         // stop the program immediately.

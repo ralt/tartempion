@@ -7,8 +7,8 @@ module.exports = {
         // even when a function is called several times
         if ( !this.engine ) {
             this.engine = require(
-                path.join( __dirname, 'tests', engine + '.js' )
-            );
+                path.join( __dirname, 'testengines', engine.name + '.js' )
+            )( engine.options );
         }
         return this.engine;
     },
@@ -33,7 +33,7 @@ module.exports = {
 
         // If the test engine isn't part of the supported ones,
         // stop the program immediately.
-        if ( !~supported.indexOf( config[ 'test engine' ] ) ) {
+        if ( !~supported.indexOf( config[ 'test engine' ].name ) ) {
             console.error( 'Test engine not supported.' );
             process.exit( -1 );
         }

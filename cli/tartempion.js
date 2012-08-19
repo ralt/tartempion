@@ -8,17 +8,7 @@ var program = require( 'commander' ),
     pie = require( './pie.js' ),
     system = require( './system.js' );
 
-program.version( '0.0.3' );
-
-program
-    .command( 'test <pie>' )
-    .description( 'Run the tests in the pie <pie>' )
-    .action( test.test );
-
-program
-    .command( 'test-all' )
-    .description( 'Run the tests in all the pies' )
-    .action( test.testAll );
+program.version( '0.0.4' );
 
 program
     .command( 'create-project <project>' )
@@ -34,6 +24,16 @@ program
     .command( 'run' )
     .description( 'Run tartempion' )
     .action( system.run );
+
+program
+    .command( 'test <pie>' )
+    .description( 'Run the tests in the pie <pie>' )
+    .action( test.test );
+
+program
+    .command( 'test-all' )
+    .description( 'Run the tests in all the pies' )
+    .action( test.testAll );
 
 program
     .command( 'help' )

@@ -15,8 +15,10 @@ files = files
     .sort();
 
 generator
-    .set( 'format', 'book' )
+    .set( 'title', 'Official documentation of tartempion' )
+    .set( 'toc', true )
+    .set( 'table', true )
+    .set( 'files', files )
     .set( 'output', 'documentation.html' )
-    .set( 'input', files )
     .generate();
 

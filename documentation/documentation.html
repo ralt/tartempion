@@ -1,85 +1,69 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
-<HTML>
-<HEAD>
-<META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=iso-iso-8859-1">
-<STYLE TYPE="text/css"><!--
-BODY { font-family: serif }
-H1 { font-family: sans-serif }
-H2 { font-family: sans-serif }
-H3 { font-family: sans-serif }
-H4 { font-family: sans-serif }
-H5 { font-family: sans-serif }
-H6 { font-family: sans-serif }
-SUB { font-size: smaller }
-SUP { font-size: smaller }
-PRE { font-family: monospace }
---></STYLE>
-</HEAD>
-<BODY>
-<CENTER><A HREF="#CONTENTS"></A>
-</CENTER>
-<HR NOSHADE>
-<H1 ALIGN="CENTER"><A NAME="CONTENTS">Table of Contents</A></H1>
-<BR>
-<BR><B><A HREF="#1">1. Installation</A></B>
-<BR>
-<BR><B><A HREF="#2">2. Command-line interface</A></B>
-<UL>
-<LI><A HREF="#2_1">2.1. Getting help</A></LI>
-<LI><A HREF="#2_2">2.2. Creating a project</A></LI>
-<LI><A HREF="#2_3">2.3. Creating a pie</A></LI>
-<LI><A HREF="#2_4">2.4. Running tartempion</A></LI>
-<LI><A HREF="#2_5">2.5. Testing the pies</A></LI>
-</UL>
-<B><A HREF="#3">3. Configuration</A></B>
-<UL>
-<LI><A HREF="#3_1">3.1. server</A></LI>
-<LI><A HREF="#3_2">3.2. templates</A></LI>
-<LI><A HREF="#3_3">3.3. session</A></LI>
-<LI><A HREF="#3_4">3.4. database</A>
-<UL>
-<LI><A HREF="#3_4_1">3.4.1. mongodb</A></LI>
-</UL>
-</LI>
-<LI><A HREF="#3_5">3.5. test engine</A></LI>
-</UL>
-<B><A HREF="#4">4. Pies</A></B>
-<BR>
-<BR><B><A HREF="#5">5. Express</A></B><HR NOSHADE>
-<H1><A NAME="1">1. Installation</A></H1>
-<P>Installing tartempion is easy. Just run the following:</P>
-<PRE><CODE>npm install -g tartempion</CODE></PRE>
-<P>Don't forget the <CODE>-g</CODE> parameter to install it globally. It
- may require you to run this as root though. If you only install it
- locally, using the command-line utility will be more painful. (You'll
- have to use it this way: <CODE>./node_modules/.bin/tartempion</CODE>,
- which is a pain.)</P>
-<P>If you want to get the last version from the git repository, here are
- the instructions:</P>
-<PRE><CODE>git clone https://github.com/Ralt/tartempion
+<!doctype html>
+<html><head>
+<meta charset="utf-8">
+<title>Official documentation of tartempion</title>
+</head><body>
+<div class="title">Official documentation of tartempion</div>
+
+<div class="toc">
+<ul>
+<li><a href="#1-installation">1. Installation</a></li>
+<li><a href="#2-command-line-interface">2. Command-line interface</a><ul>
+<li><a href="#21-getting-help">2.1. Getting help</a></li>
+<li><a href="#22-creating-a-project">2.2. Creating a project</a></li>
+<li><a href="#23-creating-a-pie">2.3. Creating a pie</a></li>
+<li><a href="#24-running-tartempion">2.4. Running tartempion</a></li>
+<li><a href="#25-testing-the-pies">2.5. Testing the pies</a></li>
+</ul>
+</li>
+<li><a href="#3-configuration">3. Configuration</a><ul>
+<li><a href="#31-server">3.1. server</a></li>
+<li><a href="#32-templates">3.2. templates</a></li>
+<li><a href="#33-session">3.3. session</a></li>
+<li><a href="#34-database">3.4. database</a><ul>
+<li><a href="#341-mongodb">3.4.1. mongodb</a></li>
+</ul>
+</li>
+<li><a href="#35-test-engine">3.5. test engine</a></li>
+</ul>
+</li>
+<li><a href="#4-pies">4. Pies</a></li>
+<li><a href="#5-express">5. Express</a></li>
+</ul>
+</div>
+<h1 id="1-installation">1. Installation</h1>
+<p>Installing tartempion is easy. Just run the following:</p>
+<pre><code>npm install -g tartempion
+</code></pre>
+<p>Don't forget the <code>-g</code> parameter to install it globally. It may require you
+to run this as root though. If you only install it locally, using the
+command-line utility will be more painful. (You'll have to use it this way:
+<code>./node_modules/.bin/tartempion</code>, which is a pain.)</p>
+<p>If you want to get the last version from the git repository, here are the instructions:</p>
+<pre><code>git clone https://github.com/Ralt/tartempion
 cd tartempion
 # x.y.z is the current last version
-git checkout x.y.z</CODE></PRE>
-<P>tartempion's release management only uses git tags. The master branch
- is the one being used for development.</P>
-<HR NOSHADE>
-<H1><A NAME="2">2. Command-line interface</A></H1>
-<P>tartempion provides a command-line utility to generate projects,
- pies, and also to run the tests or the application. (You will find out <A
-href="#4">later</A> what a pie is, please be patient. For now, just
- think it's an entity.)</P>
-<H2><A NAME="2_1">2.1. Getting help</A></H2>
-<P>I believe that every project shouldn't need documentation. This is
- why the CLI utility provides help. Just type:</P>
-<PRE><CODE>tartempion help
+git checkout x.y.z
+</code></pre>
+<p>tartempion's release management only uses git tags. The master branch is the one
+being used for development.</p>
+<h1 id="2-command-line-interface">2. Command-line interface</h1>
+<p>tartempion provides a command-line utility to generate projects, pies,
+and also to run the tests or the application. (You will find out <a href="#4">later</a>
+what a pie is, please be patient. For now, just think it's an entity.)</p>
+<h2 id="21-getting-help">2.1. Getting help</h2>
+<p>I believe that every project shouldn't need documentation. This is why
+the CLI utility provides help. Just type:</p>
+<pre><code>tartempion help
 
 # or
 tartempion
 
 # or
-tartempion --help</CODE></PRE>
-<P>These three commands will show you the following screen:</P>
-<PRE><CODE>~$ tartempion
+tartempion --help
+</code></pre>
+<p>These three commands will show you the following screen:</p>
+<pre><code>~$ tartempion
 
 Usage: tartempion [options] [command]
 
@@ -106,15 +90,17 @@ Commands:
 Options:
 
     -h, --help     output usage information
-    -V, --version  output the version number</CODE></PRE>
-<P>As you can see, there are five useful commands.</P>
-<H2><A NAME="2_2">2.2. Creating a project</A></H2>
-<P>tartempion provides an easy way to start a project. Just type:</P>
-<PRE><CODE>tartempion create-project someProject</CODE></PRE>
-<P>Replace <CODE>someProject</CODE> with your project's name. It will
- create a folder named <CODE>someProject</CODE> and add the boilerplate
- files to it. Here are the files and folders it creates:</P>
-<PRE><CODE>someProject/
+    -V, --version  output the version number
+</code></pre>
+<p>As you can see, there are five useful commands.</p>
+<h2 id="22-creating-a-project">2.2. Creating a project</h2>
+<p>tartempion provides an easy way to start a project. Just type:</p>
+<pre><code>tartempion create-project someProject
+</code></pre>
+<p>Replace <code>someProject</code> with your project's name. It will create a folder
+named <code>someProject</code> and add the boilerplate files to it. Here are the
+files and folders it creates:</p>
+<pre><code>someProject/
     locals/
         locals.js
     middlewares/
@@ -124,85 +110,82 @@ Options:
     config.json
     package.json
     pies.json
-    tartempion.js</CODE></PRE>
-<H2><A NAME="2_3">2.3. Creating a pie</A></H2>
-<P>You don't know yet what a pie is, but you will soon find out it is an
- essential notion to tartempion. Hopefully for you, the CLI utility also
- provides an easy way to create a pie. Just type:</P>
-<PRE><CODE>tartempion create-pie pieName</CODE></PRE>
-<P>Replace <CODE>pieName</CODE> with your pie's name. This command does
- two things:</P>
-<UL>
-<LI>It creates a folder named <CODE>pieName</CODE> in the <CODE>pies/</CODE>
- folder.</LI>
-<LI>It updates the <CODE>pies.json</CODE> file to add information about
- the new pie.</LI>
-</UL>
-<P>Here are the files and folder created in the new pie:</P>
-<PRE><CODE>pies/
+    tartempion.js
+</code></pre>
+<h2 id="23-creating-a-pie">2.3. Creating a pie</h2>
+<p>You don't know yet what a pie is, but you will soon find out it is
+an essential notion to tartempion. Hopefully for you, the CLI utility
+also provides an easy way to create a pie. Just type:</p>
+<pre><code>tartempion create-pie pieName
+</code></pre>
+<p>Replace <code>pieName</code> with your pie's name. This command does two things:</p>
+<ul>
+<li>It creates a folder named <code>pieName</code> in the <code>pies/</code> folder.</li>
+<li>It updates the <code>pies.json</code> file to add information about the new pie.</li>
+</ul>
+<p>Here are the files and folder created in the new pie:</p>
+<pre><code>pies/
     pieName/
         test/
         controller.js
         model.js
-        routes.json</CODE></PRE>
-<H2><A NAME="2_4">2.4. Running tartempion</A></H2>
-<P>Once you will have added the pies and coded your application, running
- the final application is easy. Just type:</P>
-<PRE><CODE>tartempion run</CODE></PRE>
-<H2><A NAME="2_5">2.5. Testing the pies</A></H2>
-<P>tartempion provides an easy way to run the tests you will add to the
- pies. Just type:</P>
-<PRE><CODE>tartempion test pieName</CODE></PRE>
-<P>If you want to run the tests in all the pies, just type:</P>
-<PRE><CODE>tartempion test-all</CODE></PRE>
-<HR NOSHADE>
-<H1><A NAME="3">3. Configuration</A></H1>
-<P>tartempion doesn't want you to hard-code values in your code.</P>
-<P>So it has a <CODE>config.json</CODE> file where you can store your
- configuration.</P>
-<P>The configuration is divided in 5 parts:</P>
-<UL>
-<LI><CODE>server</CODE>: about the server being run.</LI>
-<LI><CODE>templates</CODE>: about the templates used.</LI>
-<LI><CODE>session</CODE>: about the session used.</LI>
-<LI><CODE>database</CODE>: about the database used.</LI>
-<LI><CODE>test engine</CODE>: about the test engine used.</LI>
-</UL>
-<P>You can see an example of a basic <CODE>config.json</CODE> <A href="https://github.com/Ralt/tartempion/blob/master/cli/default/project/config.json">
-here</A>.</P>
-<H2><A NAME="3_1">3.1. server</A></H2>
-<P>The <CODE>server</CODE> part has the following properties:</P>
-<UL>
-<LI><CODE>address</CODE>: the address the server listens on.</LI>
-<LI><CODE>port</CODE>: the port the server listens on.</LI>
-</UL>
-<H2><A NAME="3_2">3.2. templates</A></H2>
-<P>The <CODE>templates</CODE> part has the following properties:</P>
-<UL>
-<LI><CODE>folder</CODE>: the folder in which the templates reside.</LI>
-<LI><CODE>template engine</CODE>: the template engine used.</LI>
-</UL>
-<H2><A NAME="3_3">3.3. session</A></H2>
-<P>The <CODE>session</CODE> part has the following properties:</P>
-<UL>
-<LI><CODE>secret</CODE>: the secret key used to crypt your cookies.</LI>
-<LI><CODE>maxAge</CODE>: the expire time of your sessions.</LI>
-</UL>
-<H2><A NAME="3_4">3.4. database</A></H2>
-<P>The <CODE>databases</CODE> part has basically one field: the name of
- the database used. Depending on the database used, the properties
- differ.</P>
-<H3><A NAME="3_4_1">3.4.1. mongodb</A></H3>
-<P>For <CODE>mongodb</CODE>, you can read <A href="http://mongodb.github.com/node-mongodb-native/api-generated/db.html">
-the official documentation</A> to see what are the options.</P>
-<H2><A NAME="3_5">3.5. test engine</A></H2>
-<P>The <CODE>test engine</CODE> part has only this property for now:</P>
-<UL>
-<LI><CODE>name</CODE>: name of the test engine used.</LI>
-</UL>
-<HR NOSHADE>
-<H1><A NAME="4">4. Pies</A></H1>
-<HR NOSHADE>
-<H1><A NAME="5">5. Express</A></H1>
-</BODY>
-</HTML>
+        routes.json
+</code></pre>
+<h2 id="24-running-tartempion">2.4. Running tartempion</h2>
+<p>Once you will have added the pies and coded your application, running
+the final application is easy. Just type:</p>
+<pre><code>tartempion run
+</code></pre>
+<h2 id="25-testing-the-pies">2.5. Testing the pies</h2>
+<p>tartempion provides an easy way to run the tests you will add to the pies.
+Just type:</p>
+<pre><code>tartempion test pieName
+</code></pre>
+<p>If you want to run the tests in all the pies, just type:</p>
+<pre><code>tartempion test-all
+</code></pre>
+<h1 id="3-configuration">3. Configuration</h1>
+<p>tartempion doesn't want you to hard-code values in your code.</p>
+<p>So it has a <code>config.json</code> file where you can store your configuration.</p>
+<p>The configuration is divided in 5 parts:</p>
+<ul>
+<li><code>server</code>: about the server being run.</li>
+<li><code>templates</code>: about the templates used.</li>
+<li><code>session</code>: about the session used.</li>
+<li><code>database</code>: about the database used.</li>
+<li><code>test engine</code>: about the test engine used.</li>
+</ul>
+<p>You can see an example of a basic <code>config.json</code> <a href="https://github.com/Ralt/tartempion/blob/master/cli/default/project/config.json">here</a>.</p>
+<h2 id="31-server">3.1. server</h2>
+<p>The <code>server</code> part has the following properties:</p>
+<ul>
+<li><code>address</code>: the address the server listens on.</li>
+<li><code>port</code>: the port the server listens on.</li>
+</ul>
+<h2 id="32-templates">3.2. templates</h2>
+<p>The <code>templates</code> part has the following properties:</p>
+<ul>
+<li><code>folder</code>: the folder in which the templates reside.</li>
+<li><code>template engine</code>: the template engine used.</li>
+</ul>
+<h2 id="33-session">3.3. session</h2>
+<p>The <code>session</code> part has the following properties:</p>
+<ul>
+<li><code>secret</code>: the secret key used to crypt your cookies.</li>
+<li><code>maxAge</code>: the expire time of your sessions.</li>
+</ul>
+<h2 id="34-database">3.4. database</h2>
+<p>The <code>databases</code> part has basically one field: the name of the database
+used. Depending on the database used, the properties differ.</p>
+<h3 id="341-mongodb">3.4.1. mongodb</h3>
+<p>For <code>mongodb</code>, you can read <a href="http://mongodb.github.com/node-mongodb-native/api-generated/db.html">the official documentation</a>
+to see what are the options.</p>
+<h2 id="35-test-engine">3.5. test engine</h2>
+<p>The <code>test engine</code> part has only this property for now:</p>
+<ul>
+<li><code>name</code>: name of the test engine used.</li>
+</ul>
+<h1 id="4-pies">4. Pies</h1>
+<h1 id="5-express">5. Express</h1>
+</body></html>
+

@@ -25,5 +25,8 @@
                 "strict": false
             }
         }
+    },
+    "test engine": {
+        "name": "mocha"
     }
 }

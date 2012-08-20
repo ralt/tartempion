@@ -3,12 +3,21 @@
  * File implementing the CLI interface
  */
 var program = require( 'commander' ),
+    fs = require( 'fs' ),
+    path = require( 'path' ),
     test = require( './test.js' ),
     project = require( './project.js' ),
     pie = require( './pie.js' ),
     system = require( './system.js' );
 
-program.version( '0.0.4' );
+// Get the package.json file to get the version
+var version = JSON.parse(
+    fs.readFileSync(
+        path.join( __dirname, '..', 'package.json' )
+    )
+).version;
+
+program.version( version );
 
 program
     .command( 'create-project <project>' )

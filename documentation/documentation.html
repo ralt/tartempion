@@ -33,15 +33,15 @@ PRE { font-family: monospace }
 </UL>
 <B><A HREF="#3">3. Configuration</A></B>
 <UL>
-<LI><A HREF="#3_1">3.1. `server`</A></LI>
-<LI><A HREF="#3_2">3.2. `templates`</A></LI>
-<LI><A HREF="#3_3">3.3. `session`</A></LI>
-<LI><A HREF="#3_4">3.4. `database`</A>
+<LI><A HREF="#3_1">3.1. server</A></LI>
+<LI><A HREF="#3_2">3.2. templates</A></LI>
+<LI><A HREF="#3_3">3.3. session</A></LI>
+<LI><A HREF="#3_4">3.4. database</A>
 <UL>
 <LI><A HREF="#3_4_1">3.4.1. mongodb</A></LI>
 </UL>
 </LI>
-<LI><A HREF="#3_5">3.5. `test engine`</A></LI>
+<LI><A HREF="#3_5">3.5. test engine</A></LI>
 </UL>
 <B><A HREF="#4">4. Pies</A></B>
 <BR>
@@ -169,32 +169,32 @@ Options:
 <LI><CODE>test engine</CODE>: about the test engine used.</LI>
 </UL>
 <P>You can see an example of a basic <CODE>config.json</CODE> [here][1].</P>
-<H2><A NAME="3_1">3.1. `server`</A></H2>
+<H2><A NAME="3_1">3.1. server</A></H2>
 <P>The <CODE>server</CODE> part has the following properties:</P>
 <UL>
 <LI><CODE>address</CODE>: the address the server listens on.</LI>
 <LI><CODE>port</CODE>: the port the server listens on.</LI>
 </UL>
-<H2><A NAME="3_2">3.2. `templates`</A></H2>
+<H2><A NAME="3_2">3.2. templates</A></H2>
 <P>The <CODE>templates</CODE> part has the following properties:</P>
 <UL>
 <LI><CODE>folder</CODE>: the folder in which the templates reside.</LI>
 <LI><CODE>template engine</CODE>: the template engine used.</LI>
 </UL>
-<H2><A NAME="3_3">3.3. `session`</A></H2>
+<H2><A NAME="3_3">3.3. session</A></H2>
 <P>The <CODE>session</CODE> part has the following properties:</P>
 <UL>
 <LI><CODE>secret</CODE>: the secret key used to crypt your cookies.</LI>
 <LI><CODE>maxAge</CODE>: the expire time of your sessions.</LI>
 </UL>
-<H2><A NAME="3_4">3.4. `database`</A></H2>
+<H2><A NAME="3_4">3.4. database</A></H2>
 <P>The <CODE>databases</CODE> part has basically one field: the name of
  the database used. Depending on the database used, the properties
  differ.</P>
-<H3><A NAME="3_4_1">3.4.1. <CODE>mongodb</CODE></A></H3>
+<H3><A NAME="3_4_1">3.4.1. mongodb</A></H3>
 <P>For <CODE>mongodb</CODE>, you can read [the official
  documentation][2] to see what are the options.</P>
-<H2><A NAME="3_5">3.5. `test engine`</A></H2>
+<H2><A NAME="3_5">3.5. test engine</A></H2>
 <P>The <CODE>test engine</CODE> part has only this property for now:</P>
 <UL>
 <LI>

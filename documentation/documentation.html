@@ -32,8 +32,18 @@ PRE { font-family: monospace }
 <LI><A HREF="#2_5">2.5. Testing the pies</A></LI>
 </UL>
 <B><A HREF="#3">3. Configuration</A></B>
-<BR>
-<BR><B><A HREF="#4">4. Pies</A></B>
+<UL>
+<LI><A HREF="#3_1">3.1. `server`</A></LI>
+<LI><A HREF="#3_2">3.2. `templates`</A></LI>
+<LI><A HREF="#3_3">3.3. `session`</A></LI>
+<LI><A HREF="#3_4">3.4. `database`</A>
+<UL>
+<LI><A HREF="#3_4_1">3.4.1. mongodb</A></LI>
+</UL>
+</LI>
+<LI><A HREF="#3_5">3.5. `test engine`</A></LI>
+</UL>
+<B><A HREF="#4">4. Pies</A></B>
 <BR>
 <BR><B><A HREF="#5">5. Express</A></B><HR NOSHADE>
 <H1><A NAME="1">1. Installation</A></H1>
@@ -57,7 +67,7 @@ git checkout x.y.z</CODE></PRE>
 <P>tartempion provides a command-line utility to generate projects,
  pies, and also to run the tests or the application. (You will find out <A
 href="#4">later</A> what a pie is, please be patient. For now, just
- think it's a controller.)</P>
+ think it's an entity.)</P>
 <H2><A NAME="2_1">2.1. Getting help</A></H2>
 <P>I believe that every project shouldn't need documentation. This is
  why the CLI utility provides help. Just type:</P>
@@ -147,6 +157,54 @@ Options:
 <PRE><CODE>tartempion test-all</CODE></PRE>
 <HR NOSHADE>
 <H1><A NAME="3">3. Configuration</A></H1>
+<P>tartempion doesn't want you to hard-code values in your code.</P>
+<P>So it has a <CODE>config.json</CODE> file where you can store your
+ configuration.</P>
+<P>The configuration is divided in 5 parts:</P>
+<UL>
+<LI><CODE>server</CODE>: about the server being run.</LI>
+<LI><CODE>templates</CODE>: about the templates used.</LI>
+<LI><CODE>session</CODE>: about the session used.</LI>
+<LI><CODE>database</CODE>: about the database used.</LI>
+<LI><CODE>test engine</CODE>: about the test engine used.</LI>
+</UL>
+<P>You can see an example of a basic <CODE>config.json</CODE> [here][1].</P>
+<H2><A NAME="3_1">3.1. `server`</A></H2>
+<P>The <CODE>server</CODE> part has the following properties:</P>
+<UL>
+<LI><CODE>address</CODE>: the address the server listens on.</LI>
+<LI><CODE>port</CODE>: the port the server listens on.</LI>
+</UL>
+<H2><A NAME="3_2">3.2. `templates`</A></H2>
+<P>The <CODE>templates</CODE> part has the following properties:</P>
+<UL>
+<LI><CODE>folder</CODE>: the folder in which the templates reside.</LI>
+<LI><CODE>template engine</CODE>: the template engine used.</LI>
+</UL>
+<H2><A NAME="3_3">3.3. `session`</A></H2>
+<P>The <CODE>session</CODE> part has the following properties:</P>
+<UL>
+<LI><CODE>secret</CODE>: the secret key used to crypt your cookies.</LI>
+<LI><CODE>maxAge</CODE>: the expire time of your sessions.</LI>
+</UL>
+<H2><A NAME="3_4">3.4. `database`</A></H2>
+<P>The <CODE>databases</CODE> part has basically one field: the name of
+ the database used. Depending on the database used, the properties
+ differ.</P>
+<H3><A NAME="3_4_1">3.4.1. <CODE>mongodb</CODE></A></H3>
+<P>For <CODE>mongodb</CODE>, you can read [the official
+ documentation][2] to see what are the options.</P>
+<H2><A NAME="3_5">3.5. `test engine`</A></H2>
+<P>The <CODE>test engine</CODE> part has only this property for now:</P>
+<UL>
+<LI>
+<P><CODE>name</CODE>: name of the test engine used.</P>
+<P>[1]:
+ https://github.com/Ralt/tartempion/blob/master/cli/default/project/config.json
+ [2]:
+ http://mongodb.github.com/node-mongodb-native/api-generated/db.html</P>
+</LI>
+</UL>
 <HR NOSHADE>
 <H1><A NAME="4">4. Pies</A></H1>
 <HR NOSHADE>

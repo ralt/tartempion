@@ -1,0 +1,12 @@
+{
+    "name": "tartempion-documentation",
+    "version": "0.0.1",
+    "author": {
+        "name": "Florian Margaine",
+        "email": "florian@margaine.com",
+        "url": "http://margaine.com"
+    },
+    "dependencies": {
+        "docgenerator": "0.0.x"
+    }
+}

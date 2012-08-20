@@ -3,14 +3,14 @@ var generator = require( 'docgenerator' ),
     fs = require( 'fs' );
 
 // Get all the markdown files in this folder
-var files = fs.readdirSync( path.join( __dirname, 'original' ) );
+var files = fs.readdirSync( path.join( 'original' ) );
 
 files = files
     .filter( function( file ) {
         return file.substr( -3 ) === '.md';
     })
     .map( function( file ) {
-        return path.join( __dirname, 'original', file );
+        return path.join( 'original', file );
     })
     .sort();
 

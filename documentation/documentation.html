@@ -24,8 +24,14 @@ PRE { font-family: monospace }
 <BR><B><A HREF="#1">1. Installation</A></B>
 <BR>
 <BR><B><A HREF="#2">2. Command-line interface</A></B>
-<BR>
-<BR><B><A HREF="#3">3. Configuration</A></B>
+<UL>
+<LI><A HREF="#2_1">2.1. Getting help</A></LI>
+<LI><A HREF="#2_2">2.2. Creating a project</A></LI>
+<LI><A HREF="#2_3">2.3. Creating a pie</A></LI>
+<LI><A HREF="#2_4">2.4. Running tartempion</A></LI>
+<LI><A HREF="#2_5">2.5. Testing the pies</A></LI>
+</UL>
+<B><A HREF="#3">3. Configuration</A></B>
 <BR>
 <BR><B><A HREF="#4">4. Pies</A></B>
 <BR>
@@ -36,8 +42,8 @@ PRE { font-family: monospace }
 <P>Don't forget the <CODE>-g</CODE> parameter to install it globally. It
  may require you to run this as root though. If you only install it
  locally, using the command-line utility will be more painful. (You'll
- have to use it this way: <CODE>node node_modules/.bin/tartempion</CODE>
-, which is a pain.)</P>
+ have to use it this way: <CODE>./node_modules/.bin/tartempion</CODE>,
+ which is a pain.)</P>
 <P>If you want to get the last version from the git repository, here are
  the instructions:</P>
 <PRE><CODE>git clone https://github.com/Ralt/tartempion
@@ -48,6 +54,97 @@ git checkout x.y.z</CODE></PRE>
  is the one being used for development.</P>
 <HR NOSHADE>
 <H1><A NAME="2">2. Command-line interface</A></H1>
+<P>tartempion provides a command-line utility to generate projects,
+ pies, and also to run the tests or the application. (You will find out <A
+href="#4">later</A> what a pie is, please be patient. For now, just
+ think it's a controller.)</P>
+<H2><A NAME="2_1">2.1. Getting help</A></H2>
+<P>I believe that every project shouldn't need documentation. This is
+ why the CLI utility provides help. Just type:</P>
+<PRE><CODE>tartempion help
+
+# or
+tartempion
+
+# or
+tartempion --help</CODE></PRE>
+<P>These three commands will show you the following screen:</P>
+<PRE><CODE>~$ tartempion
+
+Usage: tartempion [options] [command]
+
+Commands:
+
+    create-project &lt;project&gt;
+    Create a project named &lt;project&gt;
+
+    create-pie &lt;pie&gt;
+    Create a pie named &lt;pie&gt;
+
+    run
+    Run tartempion
+
+    test &lt;pie&gt;
+    Run the tests in the pie &lt;pie&gt;
+
+    test-all
+    Run the tests in all the pies
+
+    help
+    Show help
+
+Options:
+
+    -h, --help     output usage information
+    -V, --version  output the version number</CODE></PRE>
+<P>As you can see, there are five useful commands.</P>
+<H2><A NAME="2_2">2.2. Creating a project</A></H2>
+<P>tartempion provides an easy way to start a project. Just type:</P>
+<PRE><CODE>tartempion create-project someProject</CODE></PRE>
+<P>Replace <CODE>someProject</CODE> with your project's name. It will
+ create a folder named <CODE>someProject</CODE> and add the boilerplate
+ files to it. Here are the files and folders it creates:</P>
+<PRE><CODE>someProject/
+    locals/
+        locals.js
+    middlewares/
+        middlewares.js
+    pies/
+    templates/
+    config.json
+    package.json
+    pies.json
+    tartempion.js</CODE></PRE>
+<H2><A NAME="2_3">2.3. Creating a pie</A></H2>
+<P>You don't know yet what a pie is, but you will soon find out it is an
+ essential notion to tartempion. Hopefully for you, the CLI utility also
+ provides an easy way to create a pie. Just type:</P>
+<PRE><CODE>tartempion create-pie pieName</CODE></PRE>
+<P>Replace <CODE>pieName</CODE> with your pie's name. This command does
+ two things:</P>
+<UL>
+<LI>It creates a folder named <CODE>pieName</CODE> in the <CODE>pies/</CODE>
+ folder.</LI>
+<LI>It updates the <CODE>pies.json</CODE> file to add information about
+ the new pie.</LI>
+</UL>
+<P>Here are the files and folder created in the new pie:</P>
+<PRE><CODE>pies/
+    pieName/
+        test/
+        controller.js
+        model.js
+        routes.json</CODE></PRE>
+<H2><A NAME="2_4">2.4. Running tartempion</A></H2>
+<P>Once you will have added the pies and coded your application, running
+ the final application is easy. Just type:</P>
+<PRE><CODE>tartempion run</CODE></PRE>
+<H2><A NAME="2_5">2.5. Testing the pies</A></H2>
+<P>tartempion provides an easy way to run the tests you will add to the
+ pies. Just type:</P>
+<PRE><CODE>tartempion test pieName</CODE></PRE>
+<P>If you want to run the tests in all the pies, just type:</P>
+<PRE><CODE>tartempion test-all</CODE></PRE>
 <HR NOSHADE>
 <H1><A NAME="3">3. Configuration</A></H1>
 <HR NOSHADE>
@@ -56,4 +153,3 @@ git checkout x.y.z</CODE></PRE>
 <H1><A NAME="5">5. Express</A></H1>
 </BODY>
 </HTML>
-

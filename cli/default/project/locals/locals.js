@@ -1,8 +1,5 @@
 module.exports = {
-    helpers: {
-    },
-
-    dynamicHelpers: {
+    locals: {
     }
 };
 

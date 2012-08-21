@@ -46,7 +46,14 @@ body {
 <li><a href="#35-test-engine">3.5. test engine</a></li>
 </ul>
 </li>
-<li><a href="#4-pies">4. Pies</a></li>
+<li><a href="#4-pies">4. Pies</a><ul>
+<li><a href="#41-introduction">4.1. Introduction</a></li>
+<li><a href="#42-definition">4.2. Definition</a></li>
+<li><a href="#43-the-routes">4.3. The routes</a></li>
+<li><a href="#44-the-controllers">4.4. The controllers</a></li>
+<li><a href="#45-the-models">4.5. The models</a></li>
+</ul>
+</li>
 <li><a href="#5-express">5. Express</a></li>
 </ul>
 </div>
@@ -205,6 +212,134 @@ to see what are the options.</p>
 <li><code>name</code>: name of the test engine used.</li>
 </ul>
 <h1 id="4-pies">4. Pies</h1>
+<h2 id="41-introduction">4.1. Introduction</h2>
+<p>A pie is an entity. It is similar to an app in django. Or a mojito in mojito.</p>
+<p>A pie has one controller and one model.</p>
+<p>tartempion uses the concept of a pie so that you can have decoupled business code.
+This way, you can code your "user" pie for a project, and reuse this pie in another
+project, by simply copy pasting it. Rumors say that someone is thinking of building
+a pie package manager.</p>
+<p>Don't forget that tartempion relies on express to do its work. So you will see some
+similarities.</p>
+<h2 id="42-definition">4.2. Definition</h2>
+<p>You can define the pies used in the <code>pies.json</code> file. By default, the CLI utility
+does this for you, so you may not need it. But here is how a pie is defined:</p>
+<pre><code>{
+    "pieName": {
+        "path": "path/to/pieName"
+    }
+}
+</code></pre>
+<p><code>path/to/pieName</code> starts at the <code>pies/</code> folder.</p>
+<p>If you want to use a pie in another pie, this is where you define the dependencies.
+Here is an example:</p>
+<pre><code>{
+    "pieName" {
+        "path": "pieName"
+    },
+    "otherPie": {
+        "path": "otherPie",
+        "dependencies": [
+            "pieName"
+        ]
+    }
+}
+</code></pre>
+<p>You will see in 4.4. how to use these dependencies.</p>
+<h2 id="43-the-routes">4.3. The routes</h2>
+<p>To define the routes that a pie handles, the <code>routes.json</code> file is there.</p>
+<p>tartempion believes that writing JSON files is less prone to errors than writing
+code, so it tries to use them as much as possible.</p>
+<p>Here is a sample of a <code>routes.json</code> file:</p>
+<pre><code>{
+    "get": [
+        { "/": "index" },
+        { "/user/login": {
+            "method": "getLogin",
+            "middlewares": [
+                "requireGuest"
+            ]}
+        }
+    ],
+    "post": [
+        { "/user/login": {
+            "method": "postLogin",
+            "middlewares": [
+                "requireGuest"
+            ]}
+        },
+        { "/user/logout": {
+            "method": "logout",
+            "middlewares": [
+                "requireLogged"
+            ]}
+        }
+    ]
+}
+</code></pre>
+<p>You can see how such a file is structured:</p>
+<ul>
+<li>There are two main array properties: <code>get</code> and <code>post</code>.</li>
+<li>These arrays contain objects defining each route.</li>
+<li>Each object has the route as a key.</li>
+<li>The value can be either a string or a method.<ul>
+<li>If it's a string, it is the controller's method used to handle the route.</li>
+<li>If it's an object, this object has two properties:<ul>
+<li>The <code>method</code> property defines the controller's method.</li>
+<li>The <code>middlewares</code> property is an array of the middlewares used.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="44-the-controllers">4.4. The controllers</h2>
+<p>As you could see, we defined the controller's methods in the <code>routes.json</code> file.
+These controller's methods are to be found in the <code>controller.js</code> file of the pie.</p>
+<p>To follow the example of 4.2., here is a controller's example:</p>
+<pre><code>module.exports = {
+    getLogin: function( req, res ) {
+    },
+
+    postLogin: function( req, res ) {
+    },
+
+    logout: function( req, res ) {
+    }
+};
+</code></pre>
+<p>Each controller's method has two parameters:</p>
+<ul>
+<li><code>req</code>: the request parameter.</li>
+<li><code>res</code>: the response parameter.</li>
+</ul>
+<p>Now, there is something very important to know:</p>
+<p><strong>Each controller has its model's methods available through <code>this.model</code>.</strong></p>
+<p>This means that after defining a <code>get( username, callback )</code> method in the model,
+you can use it this way in the controller:</p>
+<pre><code>module.exports = {
+    getLogin: function( req, res ) {
+
+        // See the very important thing here:
+        this.model.get( req.params.username, function() {} );
+    });
+};
+</code></pre>
+<p>And it works.</p>
+<p>If you have defined dependencies in the <code>pies.json</code> file, you can access the other
+pie's controller methods through <code>this.pieName</code>.</p>
+<h2 id="45-the-models">4.5. The models</h2>
+<p>The model's methods are defined in the <code>model.js</code> file of a pie.</p>
+<p>To follow up on the previous example, here is the <code>model.js</code> file:</p>
+<pre><code>module.exports = {
+    get: function( username, callback ) {
+        // Use "this.db" to access the database
+        // specified in the configuration.
+        callback();
+    }
+};
+</code></pre>
+<p>You saw that comment right. You can access the methods of your database
+through <code>this.db</code>. Just like this.</p>
 <h1 id="5-express">5. Express</h1>
 
 <div class="copyright">Documentation generated with <a href="https://npmjs.org/package/docgenerator">docgenerator</a>.</div>

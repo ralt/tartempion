@@ -20,5 +20,6 @@ generator
     .set( 'table', true )
     .set( 'files', files )
     .set( 'output', 'documentation.html' )
+    .set( 'theme', 'default' )
     .generate();
 

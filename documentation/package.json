@@ -7,6 +7,6 @@
         "url": "http://margaine.com"
     },
     "dependencies": {
-        "docgenerator": "0.0.x"
+        "docgenerator": "0.1.x"
     }
 }

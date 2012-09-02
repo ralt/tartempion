@@ -1,4 +1,7 @@
-#!/usr/bin/env node 
+#!/usr/bin/env node
+
+'use strict';
+
 /**
  * File implementing the CLI interface
  */

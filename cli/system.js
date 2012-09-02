@@ -1,3 +1,5 @@
+'use strict';
+
 var cp = require( 'child_process' ),
     spawn = require( 'child_process' ).spawn,
     fs = require( 'fs' );

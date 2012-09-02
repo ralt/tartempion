@@ -1,3 +1,5 @@
+'use strict';
+
 var wrench = require( 'wrench' ),
     fs = require( 'fs' ),
     path = require( 'path' );

@@ -25,7 +25,7 @@
 
 <h2>Documentation</h2>
 
-<p>Coming up soon on <a href="https://github.com/Ralt/tartempion/wiki">the wiki</a>.</p>
+<p>The documentation is available <a href="http://margaine.com/tartempion/documentation/documentation.html">right here</a>.</p>
 
 <h2>Roadmap</h2>
 

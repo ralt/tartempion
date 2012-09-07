@@ -4,5 +4,8 @@
     ],
     "test engines": [
         "mocha"
+    ],
+    "session": [
+        "connect-mongodb"
     ]
 }

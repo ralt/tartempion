@@ -1,6 +1,6 @@
 {
     "name": "tartempion",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "description": "The web framework for people who like to eat some pie.",
     "author": {
         "name": "Florian Margaine",

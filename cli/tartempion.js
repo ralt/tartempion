@@ -14,10 +14,8 @@ var program = require( 'commander' ),
     system = require( './system.js' );
 
 // Get the package.json file to get the version
-var version = JSON.parse(
-    fs.readFileSync(
-        path.join( __dirname, '..', 'package.json' )
-    )
+var version = require(
+    path.join( __dirname, '..', 'package.json' )
 ).version;
 
 program.version( version );

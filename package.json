@@ -1,6 +1,6 @@
 {
     "name": "tartempion",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "description": "The web framework for people who like to eat some pie.",
     "author": {
         "name": "Florian Margaine",
@@ -15,7 +15,9 @@
         "ncore": "2.2.2",
         "express": "3.0.x",
         "commander": "1.0.x",
-        "wrench": "1.3.x"
+        "wrench": "1.3.x",
+        "mongodb": "1.2.x",
+        "connect-mongodb": "1.1.x"
     },
     "devDependencies": {
         "mocha": "1.3.x"
